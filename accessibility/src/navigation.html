@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTS and SST beta</title>
+<link rel="stylesheet" href="bleh.css">
+<script src="stt.js"></script>
+<script src="tts.js"></script>
+<script type="module" src = "camera.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="logo">yum</div>
+</header>
+
+<main id="app">
+
+  <!-- ── IDLE ── -->
+
+  <div id="status">Ready</div>
+  <button id="micBtn" onclick="startMic()">🎤 Start Listening</button>
+  <button id="speakBtn" onclick="speakText()">🔊 Speak Text</button>
+  <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
+
+  <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea>
+  
+ <!-- Camera panel -->
+  <div class="panel camera-panel">
+    <div class="panel-label">
+      <div class="dot live" id="cam-dot" style="background:var(--muted)"></div>
+      CAMERA
+    </div>
+
+    <div class = "camera-wrapper">
+      <video id="video-preview" autoplay muted playsinline></video>
+      <canvas id = "gesture-canvas"></canvas>
+    </div>
+
+    <div class="camera-off-msg" id="cam-off-msg" style="display:none">
+        Camera unavailable or permission denied
+    </div>
+ 
+    <!-- Gesture detection readout -->
+    <div style="margin-top: 0.75rem; font-family: 'Space Mono', monospace; font-size: 0.75rem;">
+      <span style="color: var(--muted); letter-spacing: 0.08em;">GESTURE: </span>
+      <span id="gesture-status" style="color: var(--muted);">No gesture</span>
+    </div>
+ 
+    <!-- Gesture reference -->
+    <div style="margin-top: 0.75rem; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); line-height: 1.8;">
+      ✋ open palm → stop speaking<br>
+      👍 thumbs up → speak text<br>
+      ✌️ peace sign → start mic<br>
+      👊 fist → clear text
+    </div>
+  </div>
+ 
+    <!-- Transcript -->
+    <div class="panel transcript-panel">
+      <div class="panel-label">LIVE TRANSCRIPT</div>
+      <div id="transcript"><span style="color:var(--muted);font-family:'Space Mono',monospace;font-size:0.8rem;">Waiting for speech…</span></div>
+    </div>
+
+
+
+</main>
+</body>
+</html>
