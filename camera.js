@@ -214,4 +214,5 @@ function showToast(msg) {
 }
 
 window.addEventListener('load', () =>
-     startCamera());
+     startCamera()
+);

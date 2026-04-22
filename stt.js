@@ -12,6 +12,10 @@ let hadSpeech = false;
 const textBox = document.getElementById('textBox');
 const micBtn = document.getElementById('micBtn');
 const ready_status = document.getElementById('status');
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+let recognition = new SpeechRecognition();
  
 
 async function startMic() {
@@ -22,23 +26,20 @@ async function startMic() {
     document.getElementById('transcript').innerHTML = '<span style="color:var(--muted);font-family:\'Space Mono\',monospace;font-size:0.8rem;">Waiting for speech…</span>';
 
     sessionStartTime = Date.now();
-        // await startCamera();
+    // await startCamera();
     startSpeechRecognition();
 }
-
 
 async function stopMic() {
     fullTranscript = '';
     transcriptHTML = '';
     hadSpeech = false;
     sessionElapsed = 0;
+    recognition.stop();
     document.getElementById('transcript').innerHTML = '<span style="color:var(--muted);font-family:\'Space Mono\',monospace;font-size:0.8rem;">Waiting for speech…</span>';
 }
 
 function startSpeechRecognition() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-    recognition = new SpeechRecognition();
     recognition.continuous = true;
     recognition.interimResults = true;
     recognition.lang = 'en-US';

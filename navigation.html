@@ -9,6 +9,7 @@
 <script src="stt.js"></script>
 <script src="tts.js"></script>
 <script type="module" src = "camera.js"></script>
+<script src="main.js"></script>
 </head>
 <body>
 
@@ -22,7 +23,7 @@
 
   <div id="status">Ready</div>
   <button id="micBtn" onclick="startMic()">🎤 Start Listening</button>
-  <button id="speakBtn" onclick="speakText()">🔊 Speak Text</button>
+  <button id="speakBtn" onclick="speakText()" onmouseover="speakText('hover over speakbutton')">🔊 Speak Text</button>
   <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
 
   <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea>
