@@ -146,37 +146,6 @@ main {
     color: var(--accent);
 }
 
-  /* Camera */
-.camera-panel {
-    position: relative;
-}
-
-#video-preview {
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: #000;
-    border-radius: 4px;
-    object-fit: cover;
-    display: block;
-    transform: scaleX(-1); /* mirror */
-}
-
-.camera-off-msg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: var(--bg);
-    border: 1px dashed var(--border);
-    border-radius: 4px;
-    color: var(--muted);
-    font-size: 0.85rem;
-    font-family: 'Space Mono', monospace;
-    text-align: center;
-    padding: 1rem;
-}
-
   /* Transcript */
 .transcript-panel {
     grid-column: 1 / -1;
@@ -204,34 +173,7 @@ main {
     color: var(--text);
 }
 
-  /* Video playback */
-.playback-panel {
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-}
-
-.playback-panel video {
-    width: 100%;
-    display: block;
-    background: #000;
-    aspect-ratio: 16/9;
-    object-fit: cover;
-    transform: scaleX(-1);
-}
-
-.playback-label {
-    background: var(--surface);
-    padding: 0.75rem 1rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-top: 1px solid var(--border);
-}
+  
 
 .feedback-panel {
     background: var(--surface);
@@ -313,4 +255,12 @@ main {
 }
 .anim {
     animation: fadeIn 0.4s ease forwards;
+}
+
+#legend{
+    display: flex;     
+    margin-top: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
 }

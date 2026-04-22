@@ -27,6 +27,14 @@ async function startMic() {
 }
 
 
+async function stopMic() {
+    fullTranscript = '';
+    transcriptHTML = '';
+    hadSpeech = false;
+    sessionElapsed = 0;
+    document.getElementById('transcript').innerHTML = '<span style="color:var(--muted);font-family:\'Space Mono\',monospace;font-size:0.8rem;">Waiting for speech…</span>';
+}
+
 function startSpeechRecognition() {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -66,12 +74,12 @@ function startSpeechRecognition() {
         // update interim
         if (interimSpan) interimSpan.remove();
         if (interim) {
-        interimSpan = document.createElement('span');
-        interimSpan.style.color = 'var(--muted)';
-        interimSpan.style.fontStyle = 'italic';
-        interimSpan.textContent = interim;
-        transcript.appendChild(interimSpan);
-        transcript.scrollTop = transcript.scrollHeight;
+            interimSpan = document.createElement('span');
+            interimSpan.style.color = 'var(--muted)';
+            interimSpan.style.fontStyle = 'italic';
+            interimSpan.textContent = interim;
+            transcript.appendChild(interimSpan);
+            transcript.scrollTop = transcript.scrollHeight;
         }
     };
 

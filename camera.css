@@ -1,0 +1,61 @@
+
+#video-preview {
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 4px;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+    display: block;
+    transform: scaleX(-1); /* mirror */
+}
+
+.camera-off-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Canvas overlays exactly on the video */
+.camera-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 19/9;
+
+}
+.camera-panel {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+
+}
+
+.camera-wrapper video {
+    object-fit: cover;
+    background: #000;
+}
+.camera-wrapper canvas {
+    
+    pointer-events: none;
+}
+
+#gesture-canvas{
+    position: absolute;
+    top: 0;
+    left: 0;
+    
+    width: 100%;
+    transform: scaleX(-1);
+}
