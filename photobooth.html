@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTS and SST beta</title>
+<link rel="stylesheet" href="photobooth.css">
+<link rel="stylesheet" href="camera.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="photo-preview-container">
+            
+        <div class="camera-wrapper">
+            <div class="panel-label">
+                <div class="dot live" id="cam-dot" style="background:var(--muted)"></div>
+                CAMERA
+            </div>
+            <video id="video-preview" autoplay muted playsinline></video>
+            <canvas id = "gesture-canvas"></canvas>
+            <div class="captured-Photo-container" id="capturedPhotoContainer"></div>
+        </div>
+
+
+        <div class="download-btn-container">
+        <button type="button" id="captureButton">Capture </button>
+
+        <button id="retakePicturesButton">Re-take</button>
+
+        <button id="downloadButton">Download Photobooth </button>
+        </div>
+    </div>
+    <script src = "photo.js"></script>
+    <script type = "module" src = "camera.js"></script>
+    </body>
+</html>

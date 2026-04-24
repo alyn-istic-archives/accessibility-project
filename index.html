@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TTS and SST beta</title>
+<link rel="stylesheet" href="bleh.css">
+<link rel="stylesheet" href="camera.css">
+</head>
+<body>
+
+<header>
+  <div class="logo">yum</div>
+</header>
+
+<main id="app">
+
+<!-- Camera panel -->
+
+    <a href = "navigation.html"> enter photobooth!</a>
+    <button id = "narration-btn" onclick="toggleNarration()"> </button>
+
+    <!-- Gesture detection readout -->
+    <div class = "legend">
+      <span style="color: var(--muted); letter-spacing: 0.08em;">GESTURE: </span>
+      <span id="gesture-status" style="color: var(--muted);">No gesture</span>
+    </div>
+ 
+    <!-- Gesture reference -->
+    <div class = "legend">
+      👍 thumbs up → speak text<br>
+      ✌️ open hand → stop text<br>
+      ✌️ peace sign → start mic<br>
+      👊 fist → clear text
+    </div>
+
+
+    <script src="main.js"></script>
+    <script src="tts.js"></script>
+    <script src="stt.js"></script>
+</main>
+</body>
+</html>

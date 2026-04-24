@@ -6,48 +6,44 @@
 <title>TTS and SST beta</title>
 <link rel="stylesheet" href="bleh.css">
 <link rel="stylesheet" href="camera.css">
-<script src="stt.js"></script>
-<script src="tts.js"></script>
-<script type="module" src = "camera.js"></script>
-<script src="main.js"></script>
 </head>
 <body>
 
+
+
 <header>
-  <div class="logo">yum</div>
+    <div class="logo">yum</div>
 </header>
 
 <main id="app">
 
   <!-- ── IDLE ── -->
 
-  <div id="status">Ready</div>
-  <button id="micBtn" onclick="startMic()">🎤 Start Listening</button>
-  <button id="speakBtn" onclick="speakText()" onmouseover="speakText('hover over speakbutton')">🔊 Speak Text</button>
-  <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
+    <div id="status">Ready</div>
+    
+    <button id = "narration-btn" onclick="toggleNarration()"> narration: on</button>
+    <button id="micBtn" onclick="startMic()">🎤 Start Listening</button>
+    <button id="speakBtn" onclick="speakText()" onmouseover="speak('hover over speakbutton')">🔊 Speak Text</button>
+    <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
 
-  <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea>
-  
- <!-- Camera panel -->
+    <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea>
+    
+  <!-- Camera panel -->
 
     <div class="camera-wrapper">
-      <div class="panel-label">
-        <div class="dot live" id="cam-dot" style="background:var(--muted)"></div>
-        CAMERA
-      </div>
-        <video id="video-preview" autoplay muted playsinline></video>
-        <canvas id = "gesture-canvas"></canvas>
-  </div>
-
-
-    <div class="camera-off-msg" id="cam-off-msg" style="display:none">
-        Camera unavailable or permission denied
+        <div class="panel-label">
+          <div class="dot live" id="cam-dot" style="background:var(--muted)"></div>
+          CAMERA
+        </div>
+          <video id="video-preview" autoplay muted playsinline></video>
+          <canvas id = "gesture-canvas"></canvas>
     </div>
+
  
     <!-- Gesture detection readout -->
-    <div class = "legend">
-      <span style="color: var(--muted); letter-spacing: 0.08em;">GESTURE: </span>
-      <span id="gesture-status" style="color: var(--muted);">No gesture</span>
+    <div class = "legend" id = "photobooth-output">
+      <span>GESTURE: </span>
+      <span>No gesture</span>
     </div>
  
     <!-- Gesture reference -->
@@ -56,7 +52,13 @@
       ✌️ peace sign → start mic<br>
       👊 fist → clear text
     </div>
-  </div>
+    <div class="download-btn-container">
+        <button type="button" id="captureButton">Capture </button>
+
+        <button id="retakePicturesButton">Re-take</button>
+
+        <button id="downloadButton">Download Photobooth </button>
+      </div>
  
     <!-- Transcript -->
     <div class="panel transcript-panel">
@@ -64,7 +66,9 @@
       <div id="transcript"><span style="color:var(--muted);font-family:'Space Mono',monospace;font-size:0.8rem;">Waiting for speech…</span></div>
     </div>
 
-
+    <script src="stt.js"></script>
+    <script src="tts.js"></script>
+    <script type="module" src = "camera.js"></script>
 
 </main>
 </body>
