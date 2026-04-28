@@ -11,8 +11,8 @@ let lastTriggeredGesture = null;
 let gestureSteadyFrames = 0;
 const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
  
-const videoHeight = "360px";
-const videoWidth = "480px";
+const videoHeight = "480px";
+const videoWidth = "640px";
 
 const output = document.getElementById("photobooth-output");
 
@@ -78,7 +78,7 @@ if (photoCount >= 4) {
 
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
-      await new Promise((r) => setTimeout(r, 500));
+      await new Promise((r) => setTimeout(r, 50));
     }
 
     countdownElement.textContent = ""; 
@@ -126,15 +126,15 @@ async function downloadPhotos() {
         return;
     }
 
-    const singleWidth = 300;   
-    const singleHeight = 225;  
+    const singleWidth = 512;   
+    const singleHeight = 600;  
     const border = 10;         
     const textHeight = 40;    
 
 
     const canvas = document.createElement('canvas');
-    canvas.width = singleWidth * 2 + border * 3;
-    canvas.height = singleHeight * 2 + border * 3 + textHeight;
+    canvas.width = singleWidth + border * 3;
+    canvas.height = singleHeight * 4 + border * 3 + textHeight;
 
     const ctx = canvas.getContext('2d');
 
@@ -145,17 +145,20 @@ async function downloadPhotos() {
 
     for (let i = 0; i < photosArray.length; i++) {
         const img = new Image();
+        const frame = new Image();
         img.src = photosArray[i];
+        frame.src = "images/frame.png";
 
         await new Promise((resolve) => {
             img.onload = () => {
-                const col = i % 2;
-                const row = Math.floor(i / 2);
+                const col = i % 1;
+                const row = Math.floor(i);
 
                 const x = border + col * (singleWidth + border);
                 const y = border + row * (singleHeight + border);
 
                 ctx.drawImage(img, x, y, singleWidth, singleHeight);
+                ctx.drawImage(frame, x, y, singleWidth, singleHeight);
                 resolve();
             };
         });
@@ -230,11 +233,12 @@ async function predictWebcam() {
   const video = document.getElementById("video-preview");
   const canvas = document.getElementById("gesture-canvas");
   if (!canvas) return;
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
  
   canvas.style.height = videoHeight;
   canvas.style.width = videoWidth;
-  video.style.height = videoHeight;
-  video.style.width = videoWidth;
  
   const canvasCtx = canvas.getContext("2d");
   const drawingUtils = new DrawingUtils(canvasCtx);
@@ -250,6 +254,8 @@ async function predictWebcam() {
     // Draw hand skeleton overlay
     if (results.landmarks) {
       for (const landmarks of results.landmarks) {
+
+
         drawingUtils.drawConnectors(landmarks, GestureRecognizer.HAND_CONNECTIONS, {
           color: "#6064e8",
           lineWidth: 2

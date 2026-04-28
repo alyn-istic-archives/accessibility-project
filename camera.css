@@ -1,8 +1,6 @@
 
 #video-preview {
     position: absolute;
-    width: 480px;
-    aspect-ratio: 4/3;
     background: #000;
     border-radius: 4px;
     left: auto;
@@ -16,16 +14,14 @@
 
 /* Canvas overlays exactly on the video */
 .camera-wrapper {
-    width: 600px;
-    height: 400px;
+    width: 640px;
+    height: 360px;
     position: relative;
-    width: 100%;
-
 }
 
 
 .camera-wrapper video {
-    object-fit: cover;
+    object-fit: fill;
     background: #000;
 }
 .camera-wrapper canvas {
@@ -37,8 +33,6 @@
     position: absolute;
     top: 0;
     left: 0;
-    
-    width: 100%;
     transform: scaleX(-1);
 }
 
@@ -58,10 +52,10 @@
     position: absolute;
     top: 0%;
     left: 0%;
-    width: 600px;
-    height: 400px;
+    width: 640px;
+    height: 480px;
     pointer-events: none;
-    z-index: 1000;
+    z-index: 900;
 }
 
 #photobooth-output{
