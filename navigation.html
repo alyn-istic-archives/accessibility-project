@@ -15,7 +15,7 @@
     <div class="logo">yum</div>
 </header>
 
-<main id="app">
+<main >
 
   <!-- ── IDLE ── -->
 
@@ -31,17 +31,15 @@
   <!-- Camera panel -->
 
     <div class="camera-wrapper">
-        <div class="panel-label">
-          <div class="dot live" id="cam-dot" style="background:var(--muted)"></div>
-          CAMERA
-        </div>
-          <video id="video-preview" autoplay muted playsinline></video>
+        <img src="images/frame.png"  class="frame" width="600" height = "400">
+          <video id="video-preview" autoplay muted playsinline width></video>
           <canvas id = "gesture-canvas"></canvas>
     </div>
-
+    <div  id = "photobooth-output">
+    </div>
  
     <!-- Gesture detection readout -->
-    <div class = "legend" id = "photobooth-output">
+    <div class = "legend"">
       <span>GESTURE: </span>
       <span>No gesture</span>
     </div>

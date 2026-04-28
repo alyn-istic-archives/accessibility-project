@@ -148,6 +148,7 @@ main {
 
   /* Transcript */
 .transcript-panel {
+    margin-top: 15em;
     grid-column: 1 / -1;
 }
 

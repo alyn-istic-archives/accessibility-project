@@ -1,46 +1,28 @@
 
 #video-preview {
     position: absolute;
-    width: 100%;
-    aspect-ratio: 16/9;
+    width: 480px;
+    aspect-ratio: 4/3;
     background: #000;
     border-radius: 4px;
-    left: 0;
-    top: 0;
+    left: auto;
+    top: auto;
     object-fit: cover;
     display: block;
     transform: scaleX(-1); /* mirror */
+    line-height: 1em;
 }
 
-.camera-off-msg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    aspect-ratio: 16/9;
-    background: var(--bg);
-    border: 1px dashed var(--border);
-    border-radius: 4px;
-    color: var(--muted);
-    font-size: 0.85rem;
-    font-family: 'Space Mono', monospace;
-    text-align: center;
-    padding: 1rem;
-}
 
 /* Canvas overlays exactly on the video */
 .camera-wrapper {
+    width: 600px;
+    height: 400px;
     position: relative;
     width: 100%;
-    aspect-ratio: 19/9;
 
 }
-.camera-panel {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9;
 
-}
 
 .camera-wrapper video {
     object-fit: cover;
@@ -58,4 +40,33 @@
     
     width: 100%;
     transform: scaleX(-1);
+}
+
+.countdown{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 100px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 15px black;
+    z-index: 999;
+}
+
+.frame{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 600px;
+    height: 400px;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+#photobooth-output{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }

@@ -42,40 +42,43 @@ document.addEventListener('DOMContentLoaded', async () => {
 //     }
 
   retakePicturesButton.addEventListener('click', () => {
-        window.location.reload(true);
+        retakePhotos();
     })
 // }
+
+function retakePhotos() {
+    photosArray.length = 0; 
+    photoCount = 0;
+    captureButton.disabled = false;
+    capturedPhotoContainer.innerHTML = '';
+}
 
 async function takePhoto () {
 if (photoCount >= 4) {
     captureButton.disabled = true;
+    retakePicturesButton.disabled = false;
     return;
   }
 
-  captureButton.disabled = true; 
+  captureButton.disabled = true;  
 
   const countdownElement = document.createElement('div');
-  countdownElement.style.position = 'absolute';
-  countdownElement.style.top = '50%';
-  countdownElement.style.left = '50%';
-  countdownElement.style.transform = 'translate(-50%, -50%)';
-  countdownElement.style.fontSize = '80px';
-  countdownElement.style.fontWeight = 'bold';
-  countdownElement.style.color = 'white';
-  countdownElement.style.textShadow = '0 0 15px black';
-  countdownElement.style.zIndex = '999';
+  countdownElement.classList.add("countdown");
   document.body.appendChild(countdownElement);
 
   const takeSinglePhoto = async () => {
     if (photoCount >= 4) {
       captureButton.disabled = true;
       countdownElement.remove();
+      retakePicturesButton.disabled = false;
       return;
     }
 
+    retakePicturesButton.disabled = true;
+
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
-      await new Promise((r) => setTimeout(r, 1000));
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     countdownElement.textContent = ""; 
@@ -85,6 +88,10 @@ if (photoCount >= 4) {
     canvas.height = parseInt(videoHeight);
 
     const ctx = canvas.getContext('2d');
+    ctx.scale(-1, 1);
+    ctx.translate(-canvas.width, 0);  
+
+    
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     const photoData = canvas.toDataURL('image/png');
@@ -104,11 +111,12 @@ if (photoCount >= 4) {
 
   for (let i = photoCount; i < 4; i++) {
     await takeSinglePhoto();
-    await new Promise((r) => setTimeout(r, 1000)); // short pause between photos
+    await new Promise((r) => setTimeout(r, 750)); // short pause between photos
   }
 
   countdownElement.remove();
   captureButton.disabled = true;
+  retakePicturesButton.disabled = false;
 }
 
 
@@ -158,8 +166,8 @@ async function downloadPhotos() {
     ctx.font = "30px Arial";
     ctx.textAlign = "center";
     ctx.fillText(
-        "Navi Pixels", 
-        canvas.width / 2, 
+        "Photobooth",
+        canvas.width / 2,
         canvas.height - textHeight / 2
     );
 
@@ -313,6 +321,12 @@ function triggerAction(gesture) {
     case "Pointing_Up":
       document.getElementById("textBox")?.focus();
       showToast("☝️ Text box focused");
+      break;
+
+    case "ILoveYou":
+      if (captureButton.disabled) return;
+      takePhoto();
+      showToast("🤟 Say cheese!");
       break;
   }
  
