@@ -3,6 +3,7 @@
     position: absolute;
     background: #000;
     border-radius: 4px;
+    aspect-ratio: 4/3;
     left: auto;
     top: auto;
     object-fit: cover;
@@ -14,6 +15,7 @@
 
 /* Canvas overlays exactly on the video */
 .camera-wrapper {
+    aspect-ratio: 4/3;
     width: 640px;
     height: 360px;
     position: relative;

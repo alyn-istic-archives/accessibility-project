@@ -11,8 +11,8 @@ let lastTriggeredGesture = null;
 let gestureSteadyFrames = 0;
 const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
  
-const videoHeight = "480px";
-const videoWidth = "640px";
+const videoHeight = "480px";//6
+const videoWidth = "640px"; //8
 
 const output = document.getElementById("photobooth-output");
 
@@ -78,7 +78,7 @@ if (photoCount >= 4) {
 
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
-      await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => setTimeout(r, 500));
     }
 
     countdownElement.textContent = ""; 
@@ -126,8 +126,8 @@ async function downloadPhotos() {
         return;
     }
 
-    const singleWidth = 512;   
-    const singleHeight = 600;  
+    const singleWidth = 640;   
+    const singleHeight = 480;  
     const border = 10;         
     const textHeight = 40;    
 
@@ -139,7 +139,7 @@ async function downloadPhotos() {
     const ctx = canvas.getContext('2d');
 
 
-    ctx.fillStyle = "#aadef2ff";
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 

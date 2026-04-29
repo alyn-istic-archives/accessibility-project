@@ -30,7 +30,7 @@
     
   <!-- Camera panel -->
 
-    <div class="camera-wrapper"width = "640px">
+    <div class="camera-wrapper">
         <img src="images/frame.png"  class="frame">
           <video id="video-preview" autoplay muted playsinline width></video>
           <canvas id = "gesture-canvas"></canvas>
@@ -51,11 +51,11 @@
       👊 fist → clear text
     </div>
     <div class="download-btn-container">
-        <button type="button" id="captureButton">Capture </button>
+        <button type="button" id="captureButton"onmouseover="speak('take photos')">Capture </button>
 
-        <button id="retakePicturesButton">Re-take</button>
+        <button id="retakePicturesButton"onmouseover="speak('retake photos')">Re-take</button>
 
-        <button id="downloadButton">Download Photobooth </button>
+        <button id="downloadButton"onmouseover="speak('download photos')">Download Photobooth </button>
       </div>
  
     <!-- Transcript -->

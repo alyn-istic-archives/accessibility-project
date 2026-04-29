@@ -27,7 +27,9 @@ async function startMic() {
 
     sessionStartTime = Date.now();
     // await startCamera();
-    startSpeechRecognition();
+    if (!recognition) {
+        startSpeechRecognition();
+    }
 }
 
 async function stopMic() {
