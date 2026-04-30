@@ -1,3 +1,5 @@
+
+
 import {
   GestureRecognizer,
   FilesetResolver,
@@ -9,10 +11,11 @@ let webcamRunning = false;
 let lastVideoTime = -1;
 let lastTriggeredGesture = null;
 let gestureSteadyFrames = 0;
+const background = document.getElementById("app");
 const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
  
-const videoHeight = "480px";//6
-const videoWidth = "640px"; //8
+// const videoHeight = "480px";//6
+// const videoWidth = "640px"; //8
 
 const output = document.getElementById("photobooth-output");
 
@@ -45,7 +48,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         retakePhotos();
     })
 // }
-
 function retakePhotos() {
     photosArray.length = 0; 
     photoCount = 0;
@@ -121,7 +123,8 @@ if (photoCount >= 4) {
 
 
 async function downloadPhotos() {
- if (photosArray.length === 0) {
+  background.style.background = "var(--border)";
+  if (photosArray.length === 0) {
         alert("No photos to download!");
         return;
     }
@@ -149,13 +152,17 @@ async function downloadPhotos() {
         img.src = photosArray[i];
         frame.src = "images/frame.png";
 
-        await new Promise((resolve) => {
-            img.onload = () => {
-                const col = i % 1;
-                const row = Math.floor(i);
 
-                const x = border + col * (singleWidth + border);
-                const y = border + row * (singleHeight + border);
+        await new Promise((resolve) => {
+          
+            img.onload = () => {
+
+              const col = i % 1;
+              const row = Math.floor(i);
+
+              const x = border + col * (singleWidth + border);
+              const y = border + row * (singleHeight + border);
+      
 
                 ctx.drawImage(img, x, y, singleWidth, singleHeight);
                 ctx.drawImage(frame, x, y, singleWidth, singleHeight);
@@ -234,11 +241,11 @@ async function predictWebcam() {
   const canvas = document.getElementById("gesture-canvas");
   if (!canvas) return;
 
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
+  canvas.width = video.clientWidth;
+  canvas.height = video.clientHeight;
  
-  canvas.style.height = videoHeight;
-  canvas.style.width = videoWidth;
+  canvas.style.height = video.clientHeight;
+  canvas.style.width = video.clientWidth;
  
   const canvasCtx = canvas.getContext("2d");
   const drawingUtils = new DrawingUtils(canvasCtx);
@@ -314,14 +321,20 @@ function triggerAction(gesture) {
       showToast("👍 Speaking text…");
       break;
  
-    case "Victory":
-      if (typeof startMic === "function") startMic();
-      showToast("✌️ Listening…");
+    case "Closed_Fist":
+      if (typeof retakePhotos === "function")
+      if (!retakePicturesButton.disabled){
+        retakePhotos();
+      }
+      showToast("(Possibly) Retaking Photos...");
       break;
  
-    case "Closed_Fist":
-      if (typeof stopMic === "function") stopMic();
-      showToast("👊 Stop Mic");
+    case "ILoveYou":
+      if (typeof downloadPhotos === "function")
+      if (!downloadButton.disabled){
+        downloadPhotos();
+      }
+      showToast("(Possibly) Downloading Photos...");
       break;
  
     case "Pointing_Up":
@@ -329,7 +342,7 @@ function triggerAction(gesture) {
       showToast("☝️ Text box focused");
       break;
 
-    case "ILoveYou":
+    case "Victory":
       if (captureButton.disabled) return;
       takePhoto();
       showToast("🤟 Say cheese!");
@@ -375,13 +388,7 @@ function showToast(msg) {
   if (!toast) {
     toast = document.createElement("div");
     toast.id = "gesture-toast";
-    toast.style.cssText = `
-      position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
-      background: var(--accent); color: #0a0a0f;
-      font-family: 'Space Mono', monospace; font-size: 0.85rem; font-weight: 700;
-      padding: 0.6rem 1.4rem; border-radius: 4px;
-      z-index: 999; transition: opacity 0.3s;
-    `;
+    toast.classList.add("alert");
     document.body.appendChild(toast);
   }
   toast.textContent = msg;

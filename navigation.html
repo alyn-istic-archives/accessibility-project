@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TTS and SST beta</title>
+<title>Photobooth beta</title>
 <link rel="stylesheet" href="bleh.css">
 <link rel="stylesheet" href="camera.css">
 </head>
@@ -15,14 +15,13 @@
     <div class="logo">yum</div>
 </header>
 
-<main >
+<main id = "app">
 
   <!-- ── IDLE ── -->
 
     <div id="status">Ready</div>
     
-    <button id = "narration-btn" onclick="toggleNarration()"> narration: on</button>
-    <button id="micBtn" onclick="startMic()">🎤 Start Listening</button>
+    <button id = "narration-btn" onclick="toggleNarration()"onmouseover="speak('toggle narration?')"> narration: ---</button>
     <button id="speakBtn" onclick="speakText()" onmouseover="speak('hover over speakbutton')">🔊 Speak Text</button>
     <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
 
@@ -57,14 +56,7 @@
 
         <button id="downloadButton"onmouseover="speak('download photos')">Download Photobooth </button>
       </div>
- 
-    <!-- Transcript -->
-    <div class="panel transcript-panel">
-      <div class="panel-label">LIVE TRANSCRIPT</div>
-      <div id="transcript"><span style="color:var(--muted);font-family:'Space Mono',monospace;font-size:0.8rem;">Waiting for speech…</span></div>
-    </div>
 
-    <script src="stt.js"></script>
     <script src="tts.js"></script>
     <script type="module" src = "camera.js"></script>
 

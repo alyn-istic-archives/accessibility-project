@@ -1,20 +1,19 @@
 :root {
---bg: #cbd5dd;
+    --bg: #cbd5dd;
     --surface: #86b3e6;
-    --border: #375d89;
-    --accent: #6064e8;
-    --accent2: #4dfcff;
-    --text: #e8e6f0;
-    --muted: #2f3e57;
+    --border: #274F81;
+    --accent: #87A9F1;
+    --text: #A4D5e4;
+    --muted: #3F4B7C;
 }
 
 body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'Syne', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
 }
+
 
   /* Scanline overlay */
 body::before {
@@ -92,7 +91,6 @@ main {
   }
 
 .panel-label {
-    font-family: 'Space Mono', monospace;
     font-size: 0.65rem;
     letter-spacing: 0.12em;
     color: var(--muted);
@@ -133,112 +131,15 @@ main {
 }
 
 .total-label {
-    font-family: 'Space Mono', monospace;
     font-size: 0.7rem;
     color: var(--muted);
     letter-spacing: 0.1em;
 }
 
 #total-count {
-    font-family: 'Space Mono', monospace;
     font-size: 2rem;
     font-weight: 700;
     color: var(--accent);
-}
-
-  /* Transcript */
-.transcript-panel {
-    margin-top: 15em;
-    grid-column: 1 / -1;
-}
-
-#transcript {
-    min-height: 80px;
-    max-height: 120px;
-    overflow-y: auto;
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-}
-
-#transcript .filler-highlight {
-    color: var(--accent2);
-    font-weight: 700;
-    background: rgba(255,77,109,0.12);
-    padding: 0 2px;
-    border-radius: 2px;
-}
-
-#transcript .normal {
-    color: var(--text);
-}
-
-  
-
-.feedback-panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.5rem;
-}
-
-.feedback-panel h3 {
-    font-size: 0.8rem;
-    font-family: 'Space Mono', monospace;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 1rem;
-}
-
-
-.result-transcript {
-    grid-column: 1 / -1;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.5rem;
-}
-
-.result-transcript h3 {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    margin-bottom: 0.75rem;
-}
-
-#result-transcript-text {
-    font-size: 0.85rem;
-    line-height: 1.8;
-    color: var(--muted);
-    font-family: 'Space Mono', monospace;
-    max-height: 150px;
-    overflow-y: auto;
-}
-
-.retry-btn {
-    padding: 0.75rem 2rem;
-    font-family: 'Syne', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    background: var(--accent);
-    color: #0a0a0f;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: transform 0.15s;
-}
-
-.retry-btn:hover {
-    transform: translateY(-1px);
-}
-
-.results-actions {
-    grid-column: 1 / -1;
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
 }
 
 
@@ -261,7 +162,6 @@ main {
 .legend{
     display: flex;     
     margin-top: 0.5rem;
-    font-family: 'Space Mono', monospace;
     font-size: 0.75rem;
     width: 10em;
     z-index: 10000;
