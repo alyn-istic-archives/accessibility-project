@@ -10,46 +10,37 @@
 <body>
 
 
-
-<header>
-    <div class="logo">yum</div>
-</header>
-
 <main id = "app">
 
-  <!-- ── IDLE ── -->
-
-    <div id="status">Ready</div>
     
+  <div class = "btn-container">
     <button id = "narration-btn" onclick="toggleNarration()"onmouseover="speak('toggle narration?')"> narration: ---</button>
-    <button id="speakBtn" onclick="speakText()" onmouseover="speak('hover over speakbutton')">🔊 Speak Text</button>
+    <!-- <button id="speakBtn" onclick="speakText()" onmouseover="speak('hover over speakbutton')">🔊 Speak Text</button>
     <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
 
-    <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea>
-    
-  <!-- Camera panel -->
+    <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea> -->
+    <button id = "previous-frame-button"> < </button>
+    <button id = "next-frame-button"> > </button>
+  </div>
 
     <div class="camera-wrapper">
-        <img src="images/frame.png"  class="frame">
+        <img src = "images/frame.png" id = "frame" class="frame">
+  
           <video id="video-preview" autoplay muted playsinline width></video>
           <canvas id = "gesture-canvas"></canvas>
     </div>
-    <div  id = "photobooth-output">
+    <div id = "photobooth-output">
     </div>
  
-    <!-- Gesture detection readout -->
-    <div class = "legend"">
+    <div id = "legend">
       <span>GESTURE: </span>
       <span>No gesture</span>
-    </div>
- 
-    <!-- Gesture reference -->
-    <div class = "legend">
       👍 thumbs up → speak text<br>
       ✌️ peace sign → start mic<br>
       👊 fist → clear text
     </div>
-    <div class="download-btn-container">
+
+    <div class="btn-container">
         <button type="button" id="captureButton"onmouseover="speak('take photos')">Capture </button>
 
         <button id="retakePicturesButton"onmouseover="speak('retake photos')">Re-take</button>

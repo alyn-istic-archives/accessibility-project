@@ -14,8 +14,22 @@ let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
 const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
  
-// const videoHeight = "480px";//6
-// const videoWidth = "640px"; //8
+const videoHeight = "600px"; //3
+const videoWidth = "800px"; //4
+
+const frame_img = document.getElementById("frame");
+const next_frame = document.getElementById("next-frame-button");
+const previous_frame = document.getElementById("previous-frame-button");
+
+const frames = [
+  "images/frame.png",
+  "images/frame2.png",
+];
+
+const themes = [
+  "blue",
+  "red",
+]
 
 const output = document.getElementById("photobooth-output");
 
@@ -34,19 +48,58 @@ document.addEventListener('DOMContentLoaded', async () => {
   startCamera();
 })
 
+if (next_frame){
+  next_frame.addEventListener('click', nextFrame);
+}
+if (previous_frame){
+  previous_frame.addEventListener('click', previousFrame);
+}
 
-// async function openCamera() {
-//     try {
-//         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-//         video.srcObject = stream;
-//     } catch (err) {
-//         console.error("Camera error:", err);
-//         alert("Could not access camera. Make sure you allow permissions.");
-//     }
+async function nextFrame(){
+    const currentSrc = frame_img.src;
+    frames.forEach((frame) => {
+        if (currentSrc.includes(frame)) {
+            const currentIndex = frames.indexOf(frame);
+            const nextIndex = (currentIndex + 1) % frames.length;
+            frame_img.src = frames[nextIndex];
+            changeTheme(themes[nextIndex]);
+        }
+      });
+}
 
-  retakePicturesButton.addEventListener('click', () => {
-        retakePhotos();
-    })
+async function previousFrame(){
+    const currentSrc = frame_img.src;
+    frames.forEach((frame) => {
+        if (currentSrc.includes(frame)) {
+            const currentIndex = frames.indexOf(frame);
+            const nextIndex = (currentIndex - 1 + frames.length) % frames.length;
+            frame_img.src = frames[nextIndex];
+            changeTheme(themes[nextIndex]);
+        }
+      });
+}
+
+
+function changeTheme(theme){
+  if (theme === "blue"){
+    document.documentElement.style.setProperty('--accent', '#87A9F1');
+    document.documentElement.style.setProperty('--border', '#274F81');
+    document.documentElement.style.setProperty('--text', '#A4D5e4');
+    document.documentElement.style.setProperty('--muted', '#3F4B7C');
+    document.documentElement.style.setProperty('--bg', '#cbd5dd');
+  }
+  if (theme === "red"){
+    document.documentElement.style.setProperty('--accent', '#FF7E96');
+    document.documentElement.style.setProperty('--border', '#A32139');
+    document.documentElement.style.setProperty('--text', '#FFB0BE');
+    document.documentElement.style.setProperty('--muted', '#A7243C');
+    document.documentElement.style.setProperty('--bg', '#ddcbcd');
+  }
+}
+
+retakePicturesButton.addEventListener('click', () => {
+  retakePhotos();
+})
 // }
 function retakePhotos() {
     photosArray.length = 0; 
@@ -121,7 +174,6 @@ if (photoCount >= 4) {
   retakePicturesButton.disabled = false;
 }
 
-
 async function downloadPhotos() {
   background.style.background = "var(--border)";
   if (photosArray.length === 0) {
@@ -129,8 +181,8 @@ async function downloadPhotos() {
         return;
     }
 
-    const singleWidth = 640;   
-    const singleHeight = 480;  
+    const singleWidth = 800;   
+    const singleHeight = 600;  
     const border = 10;         
     const textHeight = 40;    
 
@@ -145,12 +197,17 @@ async function downloadPhotos() {
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+    const strip = new Image();
+    strip.src = "images/strip.png";
 
     for (let i = 0; i < photosArray.length; i++) {
         const img = new Image();
         const frame = new Image();
+
         img.src = photosArray[i];
-        frame.src = "images/frame.png";
+        frame.src = frame_img.src;
+    
+        
 
 
         await new Promise((resolve) => {
@@ -169,8 +226,10 @@ async function downloadPhotos() {
                 resolve();
             };
         });
+      
     }
 
+    // ctx.drawImage(strip, 0, 0, canvas.width, canvas.height);
  
     ctx.fillStyle = "#000000"; 
     ctx.font = "30px Arial";
@@ -181,6 +240,7 @@ async function downloadPhotos() {
         canvas.height - textHeight / 2
     );
 
+    
 
     const finalImage = canvas.toDataURL('image/png');
     const link = document.createElement('a');
@@ -241,11 +301,11 @@ async function predictWebcam() {
   const canvas = document.getElementById("gesture-canvas");
   if (!canvas) return;
 
-  canvas.width = video.clientWidth;
-  canvas.height = video.clientHeight;
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
  
-  canvas.style.height = video.clientHeight;
-  canvas.style.width = video.clientWidth;
+  canvas.style.height = videoHeight;
+  canvas.style.width = videoWidth;
  
   const canvasCtx = canvas.getContext("2d");
   const drawingUtils = new DrawingUtils(canvasCtx);
@@ -338,8 +398,8 @@ function triggerAction(gesture) {
       break;
  
     case "Pointing_Up":
-      document.getElementById("textBox")?.focus();
-      showToast("☝️ Text box focused");
+      nextFrame();
+      showToast("☝️ Next frame");
       break;
 
     case "Victory":
