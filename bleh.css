@@ -1,14 +1,15 @@
 :root {
     --bg: #cbd5dd;
     --surface: #86b3e6;
-    --border: #274F81;
-    --accent: #87A9F1;
+    --border: #274f81;
+    --accent: #87a9f1;
     --text: #A4D5e4;
     --muted: #3F4B7C;
+    --font: "Helvetica Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 body {
-    font-family: Microgramma, sans-serif;
+    font-family: var(--font);
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
@@ -41,13 +42,10 @@ header {
 }
 
 
-main {
-    max-width: 1100px;
-    margin: 0 auto;
+main{
+    display: grid;
+    margin: auto;
     padding: 2rem 1.5rem;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr; */
-    gap: 1.5rem;
 }
 
 

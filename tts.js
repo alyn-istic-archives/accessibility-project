@@ -1,14 +1,16 @@
 const narration_btn = document.getElementById('narration-btn');
-
 let savedNarration = localStorage.getItem('narrationActive');
-let narrationOff = (savedNarration === null) ? true : (savedNarration === 'true');
-
+let narrationActive = (savedNarration === null) ? false : (savedNarration === 'true');
 window.addEventListener('DOMContentLoaded', () => {
 
-    
+    if (savedNarration == true) {
+        narrationActive = false;
+    }
+
+
     // Sync the button text with the saved state
     if (narration_btn) {
-        narration_btn.textContent = `narration: ${narrationOff ? 'on' : 'off'}`;
+        narration_btn.textContent = `narration: ${narrationActive ? 'on' : 'off'}`;
     }
 });
 
@@ -19,25 +21,21 @@ if (status){
     const text = textBox.value.trim();
 }
 
-if (narration_btn===null) {
-    console.log("ts null");
-}
 
 
 function toggleNarration() {
-    localStorage.setItem('narrationActive', narrationOff);
-        if (!narrationOff){
-            narration_btn.textContent = "narration: off";
-            speakNarrationBtn('narration off');
-            narrationOff = true;
-            console.log('narration turned off');
+    if (narrationActive){
+        narration_btn.textContent = "narration: off";
+        speakNarrationBtn('narration off');
+        narrationActive = false;
+        console.log('narration turned off');
             
-        } else {
-            narration_btn.textContent = "narration: on";
-            speakNarrationBtn('narration on');
-            narrationOff = false;
-            console.log('narration turned on');
-        }
+    } else {
+        narration_btn.textContent = "narration: on";
+        speakNarrationBtn('narration on');
+        narrationActive = true;
+        console.log('narration turned on');
+    }
 }
     
 
@@ -76,8 +74,7 @@ function speakNarrationBtn(textmsg) { // Don't speak if narration is off
 }
 
 function speak(textmsg) { // Don't speak if narration is off
-    
-    if (narrationOff === true) return;
+    if (narrationActive === false) return;
     const special_text = textmsg;
     if (!special_text) { status.textContent = 'Nothing to speak!'; return; }
     window.speechSynthesis.cancel();
@@ -85,7 +82,7 @@ function speak(textmsg) { // Don't speak if narration is off
 
     utterance.voice = window.speechSynthesis.getVoices().find(v => v.name.includes('Microsoft Zira'));  // good on Edge
     utterance.lang = 'en-US';
-    utterance.rate = 0.95;
+    utterance.rate = 1.5;
     utterance.pitch = 1;
 
     window.speechSynthesis.speak(utterance);

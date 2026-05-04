@@ -9,8 +9,8 @@
     object-fit: cover;
     transform: scaleX(-1); /* mirror */
     line-height: 1em;
-    width: 800px;
-    height: 600px;
+    width: 1200px;
+    height: 900px;
     border-radius: 30px;
     border-color: var(--border);
 }
@@ -24,12 +24,13 @@
 }
 
 button{
-    font-family: Microgramma, sans-serif;
+    font-family: var(--font);
     position: relative;
-    background-color: var(--border);
-    color: var(--text);
+    background-color: var(--text);
+    color: var(--border);
     border: none;
     border-radius: 4px;
+    box-shadow: 0 2px 7px rgb(39, 79, 129, 0.9);
     padding: 0.6rem 1.2rem;
     font-size: 2em;
     margin: 0.5rem;
@@ -45,9 +46,10 @@ button{
 
 /* Canvas overlays exactly on the video */
 .camera-wrapper {
+    align-self: center;
     aspect-ratio: 4/3;
-    width: 800px;
-    height: 600px;
+    width: 1200px;
+    height: 900px;
     position: relative;
     margin: 0 auto;
 }
@@ -85,8 +87,8 @@ button{
     position: absolute;
     top: 0%;
     left: 0%;
-    width: 800px;
-    height: 600px;
+    width: 1200px;
+    height: 900px;
     pointer-events: none;
     z-index: 900;
 }
@@ -111,4 +113,16 @@ button{
     border-radius: 4px;
     z-index: 999;
     transition: opacity 0.3s;
+}
+
+/* Define the flash animation */
+@keyframes flash-animation {
+  0% { opacity: 1; }
+  50% { opacity: 0.1; } /* Create the "blink" by lowering opacity */
+  100% { opacity: 1; }
+}
+
+/* Apply it to a class */
+.flash-effect {
+  animation: flash-animation 0.2s ease-in-out;
 }

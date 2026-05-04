@@ -14,8 +14,8 @@ let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
 const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
  
-const videoHeight = "600px"; //3
-const videoWidth = "800px"; //4
+const videoHeight = "900px"; //3
+const videoWidth = "1200px"; //4
 
 const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
@@ -133,8 +133,14 @@ if (photoCount >= 4) {
 
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
+      speak(i.toString());
       await new Promise((r) => setTimeout(r, 500));
+      if (i==1){
+        video.classList.add('flash-effect');
+        setTimeout(() => video.classList.remove('flash-effect'), 200);
+      }
     }
+
 
     countdownElement.textContent = ""; 
 
@@ -181,8 +187,8 @@ async function downloadPhotos() {
         return;
     }
 
-    const singleWidth = 800;   
-    const singleHeight = 600;  
+    const singleWidth = 1200;   
+    const singleHeight = 900;  
     const border = 10;         
     const textHeight = 40;    
 
