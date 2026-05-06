@@ -308,7 +308,7 @@ button{
     #video-preview {
         background: #000;
         width: 400px;
-        height: 300px
+        height: 300px;
         transform: scaleX(-1);
     }
     
