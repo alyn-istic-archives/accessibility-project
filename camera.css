@@ -232,45 +232,202 @@ button{
 @media (max-width: 700px) {
   /* Mobile-specific styles go here */
 
-    #photobooth-output, #legend {
-        position: relative; /* Change from absolute to relative */
-        width: auto; 
-        margin: 1em;  /* Centers them and adds vertical space */
-        height: auto;
+     
+    body {
+        margin: 0;
+        background: var(--bg);
+        font-family: var(--font);
+    }
+    
+    #app {
         display: flex;
-        flex-direction: column; /* Usually better for mobile to swipe horizontally */
-        overflow-x: auto;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 1rem 3rem;
+        box-sizing: border-box;
+        width: 100%;
     }
-
-    /* 2. RESPONSIVE CAMERA: Force it to fit the screen width */
+    
+    /* ── Buttons ──────────────────────────────────────────────────── */
+    
+    button {
+        font-family: var(--font);
+        background-color: var(--text);
+        color: var(--border);
+        border: none;
+        border-radius: 4px;
+        box-shadow: 0 2px 7px rgba(68, 68, 68, 0.9);
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        margin: 0.4rem;
+        cursor: pointer;
+    }
+    
+    .btn-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 860px;
+        margin-bottom: 0.25rem;
+    }
+    
+    /* ── Main layout: [photos] [camera] [legend] ──────────────────── */
+    
+    .photo-container {
+        display: grid;
+        grid-template-columns: 160px minmax(0, 700px) 170px;
+        grid-template-areas: "photos camera legend";
+        align-items: start;
+        gap: 1rem;
+        width: 100%;
+        max-width: 1060px;
+        margin: 0.75em auto 0;
+    }
+    
+    /* ── Camera ───────────────────────────────────────────────────── */
+    
     .camera-wrapper {
-        width: auto !important; /* Force it to shrink */
-        height: auto !important;
-        aspect-ratio: 4/3;  
-        top: 0;
-        left: 0;    /* Keeps your frame and video aligned */
-        max-width: 10vw;
-        position: relative;     /* Ensure they stack properly */
+        grid-area: camera;
+        position: relative;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+        border-radius: 24px;
+        overflow: hidden;
     }
-
-    .camera-wrapper video, .camera-wrapper canvas, .camera-wrapper frame {
+    
+    .camera-wrapper video,
+    .camera-wrapper canvas,
+    .camera-wrapper .frame {
         position: absolute;
         top: 0;
         left: 0;
-        object-fit: cover; /* Ensures video fills the space without gaps */
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
     }
-
-    /* 3. BUTTONS: Stack them if they are too wide */
-    .btn-container {
-        position: relative;
-        flex-wrap: wrap; 
-        justify-content: center;
-        gap: 10px;
+    
+    #video-preview {
+        background: #000;
+        transform: scaleX(-1);
     }
-
-    button {
-        padding: 0.8rem 1.2rem;
-        font-size: 1.2rem; /* Reduced slightly from 1.5 to fit more on screen */
-        margin: 5px;
+    
+    #gesture-canvas {
+        pointer-events: none;
+        transform: scaleX(-1);
+    }
+    
+    .frame {
+        pointer-events: none;
+        z-index: 900;
+    }
+    
+    /* ── Photo strip (left) ───────────────────────────────────────── */
+    
+    #photobooth-output {
+        grid-area: photos;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75em 0.5em;
+        background-color: var(--surface);
+        border-radius: 12px;
+        overflow-y: auto;
+        max-height: 530px;
+        min-height: 0;
+        /* invisible but holds grid space — no blue ghost box */
+        visibility: hidden;
+    }
+    
+    #photobooth-output:not(:empty) {
+        visibility: visible;
+    }
+    
+    #photobooth-output img {
+        width: 136px;
+        border-radius: 6px;
+        display: block;
+    }
+    
+    /* ── Gesture guide (right) ────────────────────────────────────── */
+    
+    #legend {
+        grid-area: legend;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        padding: 0.9em 0.85em;
+        background-color: var(--surface);
+        color: var(--border);
+        font-size: 0.88rem;
+        border-radius: 12px;
+        line-height: 1.5;
+    }
+    
+    #legend span {
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    /* ── Countdown overlay ────────────────────────────────────────── */
+    
+    .countdown {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: clamp(60px, 15vw, 100px);
+        font-weight: bold;
+        color: var(--bg);
+        text-shadow: 0 0 15px black;
+        z-index: 999;
+        pointer-events: none;
+    }
+    
+    /* ── Toast ────────────────────────────────────────────────────── */
+    
+    .alert {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--accent);
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 700;
+        padding: 0.6rem 1.4rem;
+        border-radius: 4px;
+        z-index: 999;
+        transition: opacity 0.3s;
+        white-space: nowrap;
+    }
+    
+    /* ── Animations ───────────────────────────────────────────────── */
+    
+    @keyframes flash-animation {
+        0%   { opacity: 1; }
+        50%  { opacity: 0.1; }
+        100% { opacity: 1; }
+    }
+    .flash-effect { animation: flash-animation 0.2s ease-in-out; }
+    
+    @keyframes bob {
+        0%, 100% { transform: translate3d(0, -20px, 0); }
+        50%       { transform: translate3d(0,  20px, 0); }
+    }
+    .bob { animation: bob 2s infinite; }
+    
+    .show { opacity: 1; }
+    
+    /* ── Tablet (≤ 900px): shrink sidebars ───────────────────────── */
+    
+    @media (max-width: 900px) {
+        .photo-container {
+            grid-template-columns: 130px minmax(0, 1fr) 140px;
+        }
+        #photobooth-output img { width: 110px; }
+        #legend { font-size: 0.8rem; }
     }
 }
