@@ -293,9 +293,8 @@ async function downloadPhotos() {
     const link = document.createElement('a');
     link.href = finalImage;
     link.download = 'photobooth.png';
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
       await link.click();
-      await new Promise((r) => setTimeout(r, 1750)); // short pause between photos
     }
 }
 
