@@ -14,8 +14,8 @@ let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
 const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
  
-const videoHeight = "900px"; //3
-const videoWidth = "1200px"; //4
+const videoHeight = "600"; //3
+const videoWidth = "800px"; //4
 
 const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
@@ -24,10 +24,14 @@ const previous_frame = document.getElementById("previous-frame-button");
 const frames = [
   "images/frame.png",
   "images/frame2.png",
+  "images/frame3.png",
+  "images/frame4.png",
 ];
 
 const themes = [
   "blue",
+  "pink",
+  "yellow",
   "red",
 ]
 
@@ -87,13 +91,31 @@ function changeTheme(theme){
     document.documentElement.style.setProperty('--text', '#A4D5e4');
     document.documentElement.style.setProperty('--muted', '#3F4B7C');
     document.documentElement.style.setProperty('--bg', '#cbd5dd');
+    document.documentElement.style.setProperty('--surface', '#dbe9f4');
   }
-  if (theme === "red"){
+  if (theme === "pink"){
     document.documentElement.style.setProperty('--accent', '#FF7E96');
     document.documentElement.style.setProperty('--border', '#A32139');
     document.documentElement.style.setProperty('--text', '#FFB0BE');
     document.documentElement.style.setProperty('--muted', '#A7243C');
     document.documentElement.style.setProperty('--bg', '#ddcbcd');
+    document.documentElement.style.setProperty('--surface', '#f4d9d9');
+  }
+  if (theme === "yellow"){
+    document.documentElement.style.setProperty('--accent', '#F9E79F');
+    document.documentElement.style.setProperty('--border', '#B7950B');
+    document.documentElement.style.setProperty('--text', '#FDF2E9');
+    document.documentElement.style.setProperty('--muted', '#B7950B');
+    document.documentElement.style.setProperty('--bg', '#f2e5cb');
+    document.documentElement.style.setProperty('--surface', '#f9e79f');
+  }
+  if (theme === "red"){
+    document.documentElement.style.setProperty('--accent', '#F1948A');
+    document.documentElement.style.setProperty('--border', '#922B21');
+    document.documentElement.style.setProperty('--text', '#F5B7B1');
+    document.documentElement.style.setProperty('--muted', '#922B21');
+    document.documentElement.style.setProperty('--bg', '#f2c9c9');
+    document.documentElement.style.setProperty('--surface', '#f1948a');
   }
 }
 
@@ -112,6 +134,7 @@ async function takePhoto () {
 if (photoCount >= 4) {
     captureButton.disabled = true;
     retakePicturesButton.disabled = false;
+    downloadButton.disabled = false;
     return;
   }
 
@@ -126,10 +149,12 @@ if (photoCount >= 4) {
       captureButton.disabled = true;
       countdownElement.remove();
       retakePicturesButton.disabled = false;
+      downloadButton.disabled = false;
       return;
     }
 
     retakePicturesButton.disabled = true;
+    downloadButton.disabled = true;
 
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
@@ -152,13 +177,20 @@ if (photoCount >= 4) {
     ctx.scale(-1, 1);
     ctx.translate(-canvas.width, 0);  
 
+    const frame = document.createElement('img');
+    frame.src = frame_img.src;
+    frame.style.width = '150px';
+    frame.style.margin = '5px';
     
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
 
     const photoData = canvas.toDataURL('image/png');
 
     photosArray.push(photoData);
     photoCount++;
+
+    canvas.classList.add("bob");
 
     console.log(`Photo ${photoCount} captured!`, photosArray);
 
@@ -178,23 +210,23 @@ if (photoCount >= 4) {
   countdownElement.remove();
   captureButton.disabled = true;
   retakePicturesButton.disabled = false;
+  downloadButton.disabled = false;
 }
 
 async function downloadPhotos() {
-  background.style.background = "var(--border)";
   if (photosArray.length === 0) {
         alert("No photos to download!");
         return;
     }
 
-    const singleWidth = 1200;   
-    const singleHeight = 900;  
+    const singleWidth = 500;   
+    const singleHeight = 375;  
     const border = 10;         
     const textHeight = 40;    
 
 
     const canvas = document.createElement('canvas');
-    canvas.width = singleWidth + border * 3;
+    canvas.width = singleWidth + border * 2;
     canvas.height = singleHeight * 4 + border * 3 + textHeight;
 
     const ctx = canvas.getContext('2d');
@@ -208,10 +240,10 @@ async function downloadPhotos() {
 
     for (let i = 0; i < photosArray.length; i++) {
         const img = new Image();
-        const frame = new Image();
+
 
         img.src = photosArray[i];
-        frame.src = frame_img.src;
+
     
         
 
@@ -228,7 +260,6 @@ async function downloadPhotos() {
       
 
                 ctx.drawImage(img, x, y, singleWidth, singleHeight);
-                ctx.drawImage(frame, x, y, singleWidth, singleHeight);
                 resolve();
             };
         });
@@ -236,15 +267,6 @@ async function downloadPhotos() {
     }
 
     // ctx.drawImage(strip, 0, 0, canvas.width, canvas.height);
- 
-    ctx.fillStyle = "#000000"; 
-    ctx.font = "30px Arial";
-    ctx.textAlign = "center";
-    ctx.fillText(
-        "Photobooth",
-        canvas.width / 2,
-        canvas.height - textHeight / 2
-    );
 
     
 
@@ -254,6 +276,8 @@ async function downloadPhotos() {
     link.download = 'photobooth.png';
     link.click();
 }
+
+
  
 // ── Init ──────────────────────────────────────────────────────────
 const createGestureRecognizer = async () => {
@@ -378,14 +402,14 @@ function handleGestureHold(categoryName) {
 function triggerAction(gesture) {
   switch (gesture) {
     case "Open_Palm":
-      window.speechSynthesis.cancel();
-      showToast("✋ Stopped speaking");
-      break;
+    //   window.speechSynthesis.cancel();
+    //   showToast("✋ Stopped speaking");
+    //   break;
  
-    case "Thumb_Up":
-      if (typeof speakText === "function") speakText();
-      showToast("👍 Speaking text…");
-      break;
+    // case "ILoveYou":
+    //   if (typeof speakText === "function") speakText();
+    //   showToast("👍 Speaking text…");
+    //   break;
  
     case "Closed_Fist":
       if (typeof retakePhotos === "function")
@@ -395,7 +419,7 @@ function triggerAction(gesture) {
       showToast("(Possibly) Retaking Photos...");
       break;
  
-    case "ILoveYou":
+    case "Thumb_Up":
       if (typeof downloadPhotos === "function")
       if (!downloadButton.disabled){
         downloadPhotos();
@@ -440,7 +464,7 @@ function updateGestureStatus(gesture, score) {
  
   const label = labels[gesture] ?? null;
   if (label) {
-    const progress = Math.min(100, Math.round((gestureSteadyFrames / HOLD_THRESHOLD) * 100));
+    const progress = Math.min(100, Math.round((gestureSteadyFrames / HOLD_THRESHOLD) * 500));
     el.textContent = `${label} — ${score}% · hold ${progress}%`;
     el.style.color = "var(--accent)";
   } else {

@@ -1,38 +1,63 @@
 
+
+@font-face {
+  font-family: 'Satoshi'; /* Name the font */
+  src: url("satoshi/Satoshi-Black.otf") format("opentype"); 
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap; /* Helps with page load performance */
+}
+
+
+:root {
+    --bg: #cbd5dd;
+    --surface: #86b3e6;
+    --border: #274f81;
+    --accent: #87a9f1;
+    --text: #A4D5e4;
+    --muted: #3F4B7C;
+    --font: 'Satoshi', sans-serif;
+} 
+
 #video-preview {
     top: auto;
     left: auto;
     position: absolute;
     background: #000;
     border-radius: 4px;
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/9;
     object-fit: cover;
     transform: scaleX(-1); /* mirror */
     line-height: 1em;
-    width: 1200px;
-    height: 900px;
+    width: 800px;
+    height: 600px;
     border-radius: 30px;
     border-color: var(--border);
 }
 
-#legend{
+/* #legend{
     position: absolute;
     background-color: rgb(0,0,0,0.6);
     left: auto;
     top: auto;
     overflow: auto;
-}
+} */
 
 button{
     font-family: var(--font);
     position: relative;
+
     background-color: var(--text);
     color: var(--border);
+
     border: none;
+
     border-radius: 4px;
-    box-shadow: 0 2px 7px rgb(39, 79, 129, 0.9);
+
+    box-shadow: 0 2px 7px rgba(68, 68, 68, 0.9);
     padding: 0.6rem 1.2rem;
-    font-size: 2em;
+
+    font-size: var(--big);
     margin: 0.5rem;
     cursor: pointer;
 }
@@ -40,18 +65,18 @@ button{
 .btn-container {
     display: flex;
     justify-content: center;
-    margin-top: 2em;
 }
 
 
 /* Canvas overlays exactly on the video */
 .camera-wrapper {
     align-self: center;
-    aspect-ratio: 4/3;
-    width: 1200px;
-    height: 900px;
+    aspect-ratio: 16/9;
+    width: 800px;
+    height: 600px;
     position: relative;
     margin: 0 auto;
+    border-radius: 40px;
 }
 
 
@@ -87,18 +112,72 @@ button{
     position: absolute;
     top: 0%;
     left: 0%;
-    width: 1200px;
-    height: 900px;
+    width: 800px;
+    height: 600px;
     pointer-events: none;
     z-index: 900;
+    border-radius: 30px;
+}
+
+.photo-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
 }
 
 #photobooth-output{
+    position: absolute;
     display: flex;
     flex-direction: column;
-    align-items: center;
+
+    align-items: left;
+    overflow-y: auto;
+    flex-shrink:0;
+
+    top: 25%;
+    left: 10%;
     gap: 1rem;
+
+    padding-top: 1em;
+    padding-left: auto;
+    padding-right: auto;
+    padding-bottom: 1em;
+    
+    border-color: black;
+
+    height: auto;
+    width: 15em;
+    background-color: var(--surface);
+    align-items: center;
 }
+
+#legend{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+    align-items: left;
+    overflow-y: auto;
+    flex-shrink:0;
+
+    top: 25%;
+    left: 80%;
+    gap: 1rem;
+
+    padding-top: 1em;
+    padding-left: auto;
+    padding-right: auto;
+    padding-bottom: 1em;
+    
+    border-color: black;
+
+    height: auto;
+    width: 15em;
+    background-color: var(--surface);
+    align-items: center;
+}
+
 
 .alert{
     position: fixed;
@@ -125,4 +204,50 @@ button{
 /* Apply it to a class */
 .flash-effect {
   animation: flash-animation 0.2s ease-in-out;
+}
+
+
+@keyframes bob {
+    0%, 100% {
+        transform: translate3d(0,-20px,0);
+    }
+    50% {
+        transform: translate3d(0,20px,0);
+    }
+}
+.bob{
+    animation: bob 2s infinite;
+}
+
+@media (max-width: 100px) {
+  /* Mobile-specific styles go here */
+    #photobooth-output{
+        position:absolute;
+        display: flex;
+        flex-direction: column;
+
+        align-items: left;
+        overflow-y: auto;
+        flex-shrink:0;
+
+        left: 10%;
+        top: 100%;
+        gap: 1rem;
+
+        padding-top: 1em;
+        padding-left: auto;
+        padding-right: auto;
+        padding-bottom: 1em;
+        
+        border-color: black;
+
+        height: auto;
+        width: 15em;
+        background-color: var(--surface);
+        align-items: center;
+    }
+    .button{
+        font-size: 1em;
+    }
+
 }

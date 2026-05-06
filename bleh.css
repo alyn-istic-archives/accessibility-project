@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'HNC'; /* Name the font */
+  src: url("font/HelveticaNeue-Condensed\ Bold.ttf") format("truetype"); 
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap; /* Helps with page load performance */
+}
+
+
 :root {
     --bg: #cbd5dd;
     --surface: #86b3e6;
@@ -5,7 +14,8 @@
     --accent: #87a9f1;
     --text: #A4D5e4;
     --muted: #3F4B7C;
-    --font: "Helvetica Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font: 'HNC', sans-serif;
+    --big: 3em;
 }
 
 body {
@@ -35,9 +45,9 @@ header {
 }
 
 .logo {
-    font-size: 1.4rem;
-    font-weight: 800;
+    font-size: var(--big);
     letter-spacing: -0.03em;
+    font-family: var(--font);
     color: var(--accent);
 }
 

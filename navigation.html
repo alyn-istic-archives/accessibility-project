@@ -4,10 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Photobooth beta</title>
-<link rel="stylesheet" href="bleh.css">
 <link rel="stylesheet" href="camera.css">
+<link rel="stylesheet" href="bleh.css">
 </head>
 <body>
+
+
+<header>
+  <div class="logo">SNAPSHOT</div>
+</header>
 
 
 <main id = "app">
@@ -23,14 +28,28 @@
     <button id = "next-frame-button"> > </button>
   </div>
 
+  <div class="btn-container">
+        <button type="button" id="captureButton"onmouseover="speak('take photos')">Capture </button>
+
+        <button id="retakePicturesButton"onmouseover="speak('retake photos')">Re-take</button>
+
+        <button id="downloadButton"onmouseover="speak('download photos')">Download Photobooth </button>
+  </div>
+
+  
+
+  <div class = "photo-container">
+    <div id = "photobooth-output"> 
+    </div>
     <div class="camera-wrapper">
+    
         <img src = "images/frame.png" id = "frame" class="frame">
   
           <video id="video-preview" autoplay muted playsinline width></video>
           <canvas id = "gesture-canvas"></canvas>
     </div>
-    <div id = "photobooth-output">
-    </div>
+  </div>
+
  
     <div id = "legend">
       <span>GESTURE: </span>
@@ -40,13 +59,7 @@
       👊 fist → clear text
     </div>
 
-    <div class="btn-container">
-        <button type="button" id="captureButton"onmouseover="speak('take photos')">Capture </button>
 
-        <button id="retakePicturesButton"onmouseover="speak('retake photos')">Re-take</button>
-
-        <button id="downloadButton"onmouseover="speak('download photos')">Download Photobooth </button>
-      </div>
 
     <script src="tts.js"></script>
     <script type="module" src = "camera.js"></script>

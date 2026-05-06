@@ -6,19 +6,22 @@
 <title>TTS and SST beta</title>
 <link rel="stylesheet" href="bleh.css">
 <link rel="stylesheet" href="camera.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header>
-  <div class="logo">yum</div>
+  <div class="logo">SNAPSHOT</div>
 </header>
 
 <main id="app">
 
 <!-- Camera panel -->
 
-    <a href = "navigation.html"> enter photobooth!</a>
+  <div class = "booth-entry">
+    <button onclick="window.location.href = 'navigation.html'"> enter photobooth!</button>
     <button id = "narration-btn" onclick="toggleNarration()"> </button>
+  </div>
 
     <!-- Gesture detection readout -->
     <div class = "legend">
@@ -27,12 +30,7 @@
     </div>
  
     <!-- Gesture reference -->
-    <div class = "legend">
-      👍 thumbs up → speak text<br>
-      ✌️ open hand → stop text<br>
-      ✌️ peace sign → start mic<br>
-      👊 fist → clear text
-    </div>
+
 
 
     <script src="main.js"></script>

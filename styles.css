@@ -1,0 +1,17 @@
+a{
+    font-size: var(--big);
+}
+
+.booth-entry{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 20vh;
+    background: var(--border);
+    width: auto;
+    left: auto;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 2rem;
+}
