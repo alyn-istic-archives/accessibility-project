@@ -20,13 +20,14 @@
 
     
   <div class = "btn-container">
-    <button id = "narration-btn" onclick="toggleNarration()"onmouseover="speak('toggle narration?')"> narration: ---</button>
+    <button id = "narration-btn" onclick="toggleNarration()"onmouseover="speak('toggle narration?')"> Narration: ---</button>
     <!-- <button id="speakBtn" onclick="speakText()" onmouseover="speak('hover over speakbutton')">🔊 Speak Text</button>
     <button id="clearBtn" onclick="clearText()">🗑️ Clear</button>
 
     <textarea id="textBox" placeholder="Your speech will appear here, or type something to speak..."></textarea> -->
     <button id = "previous-frame-button"> < </button>
     <button id = "next-frame-button"> > </button>
+    <button id = "help" onmouseover="speak('get help')" > help</button>
   </div>
 
   <div class="btn-container">
@@ -53,11 +54,11 @@
 
  
     <div id = "legend">
-      <span>GESTURE: </span>
-      <span>No gesture</span>
-      👍 thumbs up → speak text<br>
-      ✌️ peace sign → start mic<br>
-      👊 fist → clear text
+      <span>GESTURE GUIDE:</span>
+      ✌️ peace sign → capture photos x 4<br>
+      👍 thumbs up → download photos<br>
+      👆 point up → change frames (x/4)<br>
+      👊 fist → retake photos
     </div>
 
 

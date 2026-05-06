@@ -21,6 +21,8 @@ const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
 const previous_frame = document.getElementById("previous-frame-button");
 
+const gestures = document.getElementById("help");
+
 const frames = [
   "images/frame.png",
   "images/frame2.png",
@@ -42,6 +44,7 @@ const captureButton = document.getElementById('captureButton');
 const capturedPhotoContainer = document.getElementById('photobooth-output');
 const downloadButton = document.getElementById('downloadButton');
 const retakePicturesButton = document.getElementById('retakePicturesButton');
+const gesture_btn = document.getElementById('help');
 
 const photosArray = [];
 let photoCount = 0;
@@ -58,6 +61,19 @@ if (next_frame){
 if (previous_frame){
   previous_frame.addEventListener('click', previousFrame);
 }
+
+if (gesture_btn){
+  gesture_btn.addEventListener('click', gesture_appear);
+}
+
+function gesture_appear(){
+  if (gestures.classList.contains("show")){
+    gestures.classList.remove("show");
+  }else{
+    gestures.classList.add("show");
+  }
+}
+
 
 async function nextFrame(){
     const currentSrc = frame_img.src;
@@ -128,6 +144,7 @@ function retakePhotos() {
     photoCount = 0;
     captureButton.disabled = false;
     capturedPhotoContainer.innerHTML = '';
+    capturedPhotoContainer.classList.remove("has-photos");
 }
 
 async function takePhoto () {
@@ -159,7 +176,7 @@ if (photoCount >= 4) {
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
       speak(i.toString());
-      await new Promise((r) => setTimeout(r, 500));
+      await new Promise((r) => setTimeout(r, 750));
       if (i==1){
         video.classList.add('flash-effect');
         setTimeout(() => video.classList.remove('flash-effect'), 200);
@@ -200,6 +217,7 @@ if (photoCount >= 4) {
     img.style.width = '200px';
     img.style.margin = '5px';
     capturedPhotoContainer.appendChild(img);
+    capturedPhotoContainer.classList.add("has-photos");
   };
 
 

@@ -25,14 +25,14 @@ if (status){
 
 function toggleNarration() {
     if (narrationActive){
-        narration_btn.textContent = "narration: off";
-        speakNarrationBtn('narration off');
+        narration_btn.textContent = "Narration: Off";
+        speakNarrationBtn('Narration off');
         narrationActive = false;
         console.log('narration turned off');
             
     } else {
-        narration_btn.textContent = "narration: on";
-        speakNarrationBtn('narration on');
+        narration_btn.textContent = "Narration: On";
+        speakNarrationBtn('Narration on');
         narrationActive = true;
         console.log('narration turned on');
     }
