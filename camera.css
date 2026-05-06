@@ -280,8 +280,7 @@ button{
         grid-template-areas: "photos camera legend";
         align-items: start;
         gap: 1rem;
-        width: 100%;
-        max-width: 1060px;
+        width: 300px;
         margin: 0.75em auto 0;
     }
     
@@ -302,12 +301,13 @@ button{
         top: 0;
         left: 0;
         width: 200px;
-        height: 600px;
+        height: 150px;
     }
 
     
     #video-preview {
         background: #000;
+        width: 200px;
         transform: scaleX(-1);
     }
     
