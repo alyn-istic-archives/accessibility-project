@@ -290,7 +290,7 @@ button{
     .camera-wrapper {
         grid-area: camera;
         position: relative;
-        width: 800px;
+        width: 200px;
         aspect-ratio: 4 / 3;
 
     }
@@ -301,7 +301,7 @@ button{
         position: absolute;
         top: 0;
         left: 0;
-        width: 800px;
+        width: 200px;
         height: 600px;
     }
 
