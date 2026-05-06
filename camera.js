@@ -179,10 +179,11 @@ if (photoCount >= 4) {
 
     const frame = document.createElement('img');
     frame.src = frame_img.src;
-    frame.style.width = '150px';
+    frame.style.width = '200px';
     frame.style.margin = '5px';
     
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    ctx.resetTransform();
     ctx.drawImage(frame, 0, 0, canvas.width, canvas.height);
 
     const photoData = canvas.toDataURL('image/png');
@@ -196,7 +197,7 @@ if (photoCount >= 4) {
 
     const img = document.createElement('img');
     img.src = photoData;
-    img.style.width = '150px';
+    img.style.width = '200px';
     img.style.margin = '5px';
     capturedPhotoContainer.appendChild(img);
   };
@@ -274,7 +275,10 @@ async function downloadPhotos() {
     const link = document.createElement('a');
     link.href = finalImage;
     link.download = 'photobooth.png';
-    link.click();
+    for (let i = 0; i < 2; i++) {
+      await link.click();
+      await new Promise((r) => setTimeout(r, 1750)); // short pause between photos
+    }
 }
 
 

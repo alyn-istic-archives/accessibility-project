@@ -55,10 +55,11 @@ button{
     border-radius: 4px;
 
     box-shadow: 0 2px 7px rgba(68, 68, 68, 0.9);
-    padding: 0.6rem 1.2rem;
+    padding: 0.5rem 1rem;
 
     font-size: var(--big);
     margin: 0.5rem;
+    margin-top: 0;  
     cursor: pointer;
 }
 
@@ -117,6 +118,7 @@ button{
     pointer-events: none;
     z-index: 900;
     border-radius: 30px;
+    translate: scaleX(-1);
 }
 
 .photo-container{
@@ -136,7 +138,7 @@ button{
     flex-shrink:0;
 
     top: 25%;
-    left: 10%;
+    left: 5%;
     gap: 1rem;
 
     padding-top: 1em;
@@ -145,11 +147,13 @@ button{
     padding-bottom: 1em;
     
     border-color: black;
+    translate: scaleX(-1);
 
     height: auto;
     width: 15em;
     background-color: var(--surface);
     align-items: center;
+    
 }
 
 #legend{
@@ -162,7 +166,7 @@ button{
     flex-shrink:0;
 
     top: 25%;
-    left: 80%;
+    left: 77%;
     gap: 1rem;
 
     padding-top: 1em;
@@ -175,6 +179,8 @@ button{
     height: auto;
     width: 15em;
     background-color: var(--surface);
+    color: var(--border);
+    font-size: 1.5em;
     align-items: center;
 }
 
@@ -219,35 +225,48 @@ button{
     animation: bob 2s infinite;
 }
 
-@media (max-width: 100px) {
+@media (max-width: 700px) {
   /* Mobile-specific styles go here */
-    #photobooth-output{
-        position:absolute;
-        display: flex;
-        flex-direction: column;
 
-        align-items: left;
-        overflow-y: auto;
-        flex-shrink:0;
-
-        left: 10%;
-        top: 100%;
-        gap: 1rem;
-
-        padding-top: 1em;
-        padding-left: auto;
-        padding-right: auto;
-        padding-bottom: 1em;
-        
-        border-color: black;
-
+    #photobooth-output, #legend {
+        position: relative; /* Change from absolute to relative */
+        width: auto; 
+        margin: 1em;  /* Centers them and adds vertical space */
         height: auto;
-        width: 15em;
-        background-color: var(--surface);
-        align-items: center;
-    }
-    .button{
-        font-size: 1em;
+        display: flex;
+        flex-direction: column; /* Usually better for mobile to swipe horizontally */
+        overflow-x: auto;
     }
 
+    /* 2. RESPONSIVE CAMERA: Force it to fit the screen width */
+    .camera-wrapper {
+        width: auto !important; /* Force it to shrink */
+        height: auto !important;
+        aspect-ratio: 4/3;  
+        top: 0;
+        left: 0;    /* Keeps your frame and video aligned */
+        max-width: 10vw;
+        position: relative;     /* Ensure they stack properly */
+    }
+
+    .camera-wrapper video, .camera-wrapper canvas, .camera-wrapper frame {
+        position: absolute;
+        top: 0;
+        left: 0;
+        object-fit: cover; /* Ensures video fills the space without gaps */
+    }
+
+    /* 3. BUTTONS: Stack them if they are too wide */
+    .btn-container {
+        position: relative;
+        flex-wrap: wrap; 
+        justify-content: center;
+        gap: 10px;
+    }
+
+    button {
+        padding: 0.8rem 1.2rem;
+        font-size: 1.2rem; /* Reduced slightly from 1.5 to fit more on screen */
+        margin: 5px;
+    }
 }

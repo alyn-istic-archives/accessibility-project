@@ -37,15 +37,16 @@ body::before {
 }
 
 header {
-    padding: 1.5rem 2.5rem;
+    padding: .5em;
     border-bottom: 1px solid var(--border);
     display: flex;
     align-items: center;
+    margin-bottom: 0;
     gap: 1rem;
 }
 
 .logo {
-    font-size: var(--big);
+    font-size: 2em;
     letter-spacing: -0.03em;
     font-family: var(--font);
     color: var(--accent);
