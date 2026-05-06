@@ -280,7 +280,7 @@ button{
         grid-template-areas: "photos camera legend";
         align-items: start;
         gap: 1rem;
-        width: 300px;
+        width: 400px;
         margin: 0.75em auto 0;
     }
     
@@ -289,7 +289,7 @@ button{
     .camera-wrapper {
         grid-area: camera;
         position: relative;
-        width: 200px;
+        width: 400px;
         aspect-ratio: 4 / 3;
 
     }
@@ -300,23 +300,30 @@ button{
         position: absolute;
         top: 0;
         left: 0;
-        width: 200px;
-        height: 150px;
+        width: 400px;
+        height: 300px;
     }
 
     
     #video-preview {
         background: #000;
-        width: 200px;
+        width: 400px;
+        height: 300px
         transform: scaleX(-1);
     }
     
     #gesture-canvas {
+        top: 0;
+        left: 0;
+        position: absolute;
         pointer-events: none;
         transform: scaleX(-1);
     }
     
     .frame {
+        top: 0;
+        left: 0;
+        position: absolute;
         pointer-events: none;
         z-index: 900;
         object-fit: cover;
