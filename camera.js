@@ -25,6 +25,7 @@ const gestures = document.getElementById("help");
 
 const frames = [
   "images/frame.png",
+  "images/frame1.png",
   "images/frame2.png",
   "images/frame3.png",
   "images/frame4.png",
@@ -32,6 +33,7 @@ const frames = [
 
 const themes = [
   "blue",
+  "b&w",
   "pink",
   "yellow",
   "red",
@@ -108,6 +110,14 @@ function changeTheme(theme){
     document.documentElement.style.setProperty('--muted', '#3F4B7C');
     document.documentElement.style.setProperty('--bg', '#cbd5dd');
     document.documentElement.style.setProperty('--surface', '#dbe9f4');
+  } 
+  if (theme==="b&w"){
+    document.documentElement.style.setProperty('--accent', '#eeeeee');
+    document.documentElement.style.setProperty('--border', '#595959');
+    document.documentElement.style.setProperty('--text', '#ebeded');
+    document.documentElement.style.setProperty('--muted', '#737374');
+    document.documentElement.style.setProperty('--bg', '#cdcdcd');
+    document.documentElement.style.setProperty('--surface', '#afb0b0');
   }
   if (theme === "pink"){
     document.documentElement.style.setProperty('--accent', '#FF7E96');
