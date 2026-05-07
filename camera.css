@@ -250,18 +250,6 @@ button{
     
     /* ── Buttons ──────────────────────────────────────────────────── */
     
-    button {
-        font-family: var(--font);
-        background-color: var(--text);
-        color: var(--border);
-        border: none;
-        border-radius: 4px;
-        box-shadow: 0 2px 7px rgba(68, 68, 68, 0.9);
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        margin: 0.4rem;
-        cursor: pointer;
-    }
     
     .btn-container {
         display: flex;

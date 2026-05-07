@@ -10,7 +10,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Sync the button text with the saved state
     if (narration_btn) {
-        narration_btn.textContent = `narration: ${narrationActive ? 'on' : 'off'}`;
+        narration_btn.textContent = `Narration: ${narrationActive ? 'On' : 'Off'}`;
     }
 });
 
