@@ -1,11 +1,10 @@
-
-
 @font-face {
-  font-family: 'Satoshi'; /* Name the font */
-  src: url("satoshi/Satoshi-Black.otf") format("opentype"); 
+  font-family: 'HNC'; /* Name the font */
+  src: url("font/HelveticaNeue-Condensed\ Bold.ttf") format("truetype"); 
   font-weight: 100 900;
   font-style: normal;
   font-display: swap; /* Helps with page load performance */
+  
 }
 
 
@@ -16,7 +15,8 @@
     --accent: #87a9f1;
     --text: #A4D5e4;
     --muted: #3F4B7C;
-    --font: 'Satoshi', sans-serif;
+    --font: 'HNC', sans-serif;
+    --space: 1.5px;
 } 
 
 #video-preview {
@@ -60,6 +60,7 @@ button{
     font-size: var(--big);
     margin: 0.5rem;
     margin-top: 0;  
+    letter-spacing: var(--space);
     cursor: pointer;
 }
 
@@ -169,10 +170,8 @@ button{
     left: 72%;
     gap: 1rem;
 
-    padding-top: 1em;
-    padding-left: auto;
-    padding-right: 1em;
-    padding-bottom: 1em;
+    
+    padding: 1em;
     
     border-color: black;
 
@@ -181,7 +180,9 @@ button{
     background-color: var(--surface);
     color: var(--border);
     font-size: 1.5em;
+    letter-spacing: 1.1px;
     align-items: center;
+    z-index: 1000;
 
 }
 
@@ -196,9 +197,9 @@ button{
     transform: translateX(-50%);
     background: var(--accent);
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: 1.5em;
     font-weight: 700;
-    padding: 0.6rem 1.4rem;
+    padding: 1rem;
     border-radius: 4px;
     z-index: 999;
     transition: opacity 0.3s;
@@ -338,20 +339,6 @@ button{
     }
 
     
-    /* ── Gesture guide (right) ────────────────────────────────────── */
-    
-    #legend {
-        grid-area: legend;
-        display: flex;
-        flex-direction: column;
-        gap: 0.4rem;
-        padding: 0.9em 0.85em;
-        background-color: var(--surface);
-        color: var(--border);
-        font-size: 0.88rem;
-        border-radius: 12px;
-        line-height: 1.5;
-    }
     
     
     /* ── Countdown overlay ────────────────────────────────────────── */

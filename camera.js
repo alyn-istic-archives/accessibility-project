@@ -25,7 +25,6 @@ const gestures = document.getElementById("help");
 
 const frames = [
   "images/frame.png",
-  "images/frame1.png",
   "images/frame2.png",
   "images/frame3.png",
   "images/frame4.png",
@@ -33,7 +32,6 @@ const frames = [
 
 const themes = [
   "blue",
-  "b&w",
   "pink",
   "yellow",
   "red",
@@ -445,17 +443,17 @@ function triggerAction(gesture) {
     case "Closed_Fist":
       if (typeof retakePhotos === "function")
       if (!retakePicturesButton.disabled){
+        showToast("(Possibly) Retaking Photos...");
         retakePhotos();
       }
-      showToast("(Possibly) Retaking Photos...");
       break;
  
     case "Thumb_Up":
       if (typeof downloadPhotos === "function")
       if (!downloadButton.disabled){
         downloadPhotos();
+        showToast("(Possibly) Downloading Photos...");
       }
-      showToast("(Possibly) Downloading Photos...");
       break;
  
     case "Pointing_Up":

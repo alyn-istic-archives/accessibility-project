@@ -11,4 +11,19 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Sync the button text with the saved state
 });
+const body = document.getElementById("body");
 
+if (narration_btn){
+    narration_btn.addEventListener('click', flash());
+}
+
+async function flash(){
+    if (body.classList.contains("flash")){
+        body.classList.remove("flash");
+        await new Promise((r) => setTimeout(r, 50));
+        body.classList.add("flash");
+    }
+    else{
+        body.classList.add("flash");
+    }
+}
