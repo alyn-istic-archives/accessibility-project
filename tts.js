@@ -14,12 +14,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-if (status){
-    const textBox = document.getElementById('textBox');
-    const status = document.getElementById('status');
-        
-    const text = textBox.value.trim();
-}
 
 
 
@@ -41,10 +35,9 @@ function toggleNarration() {
 
 function speakText() {
     const textBox = document.getElementById('textBox');
-    const status = document.getElementById('status');
+
         
     const text = textBox.value.trim();
-    if (!text) { status.textContent = 'Nothing to speak!'; return; }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.voice = window.speechSynthesis.getVoices().find(v => v.name.includes('Microsoft Zira'));  // good on Edge
@@ -54,14 +47,11 @@ function speakText() {
 
         // Pick the best available voic
 
-    utterance.onstart = () => status.textContent = '🔊 Speaking...';
-    utterance.onend = () => status.textContent = 'Done speaking.';
     window.speechSynthesis.speak(utterance);
 }
 
 function speakNarrationBtn(textmsg) { // Don't speak if narration is off
     const special_text = textmsg;
-    if (!special_text) { status.textContent = 'Nothing to speak!'; return; }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(special_text);
 
@@ -76,7 +66,6 @@ function speakNarrationBtn(textmsg) { // Don't speak if narration is off
 function speak(textmsg) { // Don't speak if narration is off
     if (narrationActive === false) return;
     const special_text = textmsg;
-    if (!special_text) { status.textContent = 'Nothing to speak!'; return; }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(special_text);
 
@@ -88,10 +77,4 @@ function speak(textmsg) { // Don't speak if narration is off
     window.speechSynthesis.speak(utterance);
 }
 
-function clearText() {
     
-    
-    textBox.value = '';
-    window.speechSynthesis.cancel();
-    status.textContent = 'Cleared.';
-}

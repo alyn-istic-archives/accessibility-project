@@ -365,8 +365,8 @@ async function predictWebcam() {
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
  
-  canvas.style.height = videoHeight;
-  canvas.style.width = videoWidth;
+  canvas.style.height = "100%";
+  canvas.style.width = "100%";
  
   const canvasCtx = canvas.getContext("2d");
   const drawingUtils = new DrawingUtils(canvasCtx);
