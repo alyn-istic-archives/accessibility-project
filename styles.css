@@ -1,5 +1,8 @@
 .background{
-    margin-top: 4em;
+    margin-top: 1em;
+    left: auto;
+    top: auto;
+    position: absolute;
     width: auto;
     object-fit: cover;
     
@@ -19,13 +22,13 @@ a{
     margin-top: 20vh;
     width: 20%;
     
-    top:20%;
-    left: 40%;
+    top:19%;
+    left: 37%;
     margin-left: auto;
     margin-right: auto;
     padding: 2rem;
 }
 
 button{
-    font-size: 2em; 
+    font-size: 1.5em; 
 }

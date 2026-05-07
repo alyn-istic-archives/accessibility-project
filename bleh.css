@@ -75,7 +75,7 @@ header {
 main{
     display: grid;
     margin: auto;
-    padding: 2rem 1.5rem;
+    padding: 1.2em;
 }
 
 
@@ -187,14 +187,4 @@ main{
 }
 .anim {
     animation: fadeIn 0.4s ease forwards;
-}
-
-.legend{
-    display: flex;     
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    width: 10em;
-    z-index: 10000;
-    color: var(--text);
-    background-color: rgb(0, 0, 0, 0.6);
 }

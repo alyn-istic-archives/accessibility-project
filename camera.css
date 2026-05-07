@@ -165,7 +165,7 @@ button{
     overflow-y: auto;
     flex-shrink:0;
 
-    top: 40%;
+    top: 45%;
     left: 72%;
     gap: 1rem;
 
@@ -180,7 +180,7 @@ button{
     width: 15em;
     background-color: var(--surface);
     color: var(--border);
-    font-size: 2em;
+    font-size: 1.5em;
     align-items: center;
 
 }
