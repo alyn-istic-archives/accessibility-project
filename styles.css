@@ -9,16 +9,38 @@
     opacity: 1;
 }
 
+#bounce{
+    animation: bounce 5s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 5s ease -1.25s infinite;
+}
+
+#frame{
+    opacity: 0.75;
+}
+
 @keyframes flash-animation {
   0% { opacity: 1; }
   50% { opacity: 0.1; } /* Create the "blink" by lowering opacity */
   100% { opacity: 1; }
 }
 
-/* Apply it to a class */
-#body{
-    animation: bounce 1.5s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite;  
+@keyframes swell {
+    0%, 100% {
+        transform: translate3d(0,0,0);
+    }
+    25% {
+        transform: translate3d(0,10px,0);
+    }
+    50%{
+        transform: translate3d(0, -10px, 0);
+    }
+
+    75%{
+        transform: translate3d(0, 10px, 0);
+    }
 }
+
+/* Apply it to a class */
+
 
 .flash{
     animation: flash-animation 20s ease-in-out;
@@ -45,6 +67,7 @@
 
 a{
     font-size: var(--big);
+    color: var(--border);
 }
 
 .booth-entry{
