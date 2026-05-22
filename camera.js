@@ -12,16 +12,18 @@ let lastVideoTime = -1;
 let lastTriggeredGesture = null;
 let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
-const HOLD_THRESHOLD = 18; // hold ~0.6s before firing
+const HOLD_THRESHOLD = 8; // hold ~0.6s before firing
  
-const videoHeight = "600"; //3
-const videoWidth = "800px"; //4
+const videoHeight = "600px"; //3
+const videoWidth = "600px"; //4
 
 const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
 const previous_frame = document.getElementById("previous-frame-button");
 
 const gestures = document.getElementById("help");
+const seperate = document.getElementById("seperate-img");
+let seperateClicked = "false";
 
 const frames = [
   "images/frame.png",
@@ -37,6 +39,8 @@ const themes = [
   "red",
 ]
 
+let seperateimgs = [];
+
 const output = document.getElementById("photobooth-output");
 
 const video = document.getElementById('video-preview');
@@ -45,6 +49,8 @@ const capturedPhotoContainer = document.getElementById('photobooth-output');
 const downloadButton = document.getElementById('downloadButton');
 const retakePicturesButton = document.getElementById('retakePicturesButton');
 const gesture_btn = document.getElementById('help');
+
+const qr_btn = document.getElementById('qr-btn');
 
 const photosArray = [];
 let photoCount = 0;
@@ -66,6 +72,66 @@ if (gesture_btn){
   gesture_btn.addEventListener('click', gesture_appear);
 }
 
+if (seperate){
+  seperate.addEventListener('click', () => {
+    seperateClicked = (!seperateClicked);
+    if (seperateClicked){
+      seperateImgs();
+      seperate.textContent = "Recollect Images";
+    }
+    else{
+      recollectImgs();
+      seperate.textContent = "Seperate Images";
+    }
+  })
+}
+
+async function seperateImgs(){
+  if (seperateimgs.length === 0) {
+    alert("No photos to seperate!");
+    return;
+  }
+  output.innerHTML = "";
+  seperateimgs.forEach((img) => {
+    img.style.marginLeft = "25px";
+    img.style.marginRight = "25px";
+    img.style.marginBottom = "5px";
+    img.style.marginTop = "5px";
+
+    const container = document.createElement('div');
+    container.classList.add("photobooth-output");
+    
+    const downloadImgButton = document.createElement('button');
+    downloadImgButton.classList.add("hidden");
+    
+    const link = document.createElement('a');
+    
+    link.href = img.src;
+    link.download = 'photobooth.png';
+    downloadImgButton.textContent = "Download";
+    img.addEventListener('click', () => {
+      link.click();
+    });
+    
+    img.append(downloadImgButton);
+    container.appendChild(img);
+    
+    output.appendChild(container);
+  });
+}
+
+
+function recollectImgs(){
+  if (seperateimgs.length === 0) {
+    alert("No photos to recollect!");
+    return;
+  }
+  output.innerHTML = "";
+  seperateimgs.forEach((img) => {
+    output.appendChild(img);
+  });
+}
+
 function gesture_appear(){
   if (gestures.classList.contains("show")){
     gestures.classList.remove("show");
@@ -74,7 +140,74 @@ function gesture_appear(){
   }
 }
 
+if (qr_btn){
+  qr_btn.addEventListener('click', generatePhotoboothQR);
+}
 
+const qrcode = new QRCode(document.getElementById("qrcode"), {
+    width: 128,
+    height: 128
+});
+
+async function generatePhotoboothQR() {
+    if (photosArray.length === 0) {
+        alert("No photos to process!");
+        return;
+    }
+
+    const singleWidth = 500;   
+    const singleHeight = 375;  
+    const border = 10;         
+    const textHeight = 40;    
+
+    const canvas = document.createElement('canvas');
+    canvas.width = singleWidth + border * 2;
+    canvas.height = singleHeight * 4 + border * 3 + textHeight;
+
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let i = 0; i < photosArray.length; i++) {
+        const img = new Image();
+        img.src = photosArray[i];         
+        await new Promise((resolve) => {
+            img.onload = () => {
+                const col = i % 1;
+                const row = Math.floor(i);
+                const x = border + col * (singleWidth + border);
+                const y = border + row * (singleHeight + border);
+                ctx.drawImage(img, x, y, singleWidth, singleHeight);
+                resolve();
+            };
+        });
+    }
+    const finalImage = canvas.toDataURL('image/png');
+
+    try {
+        alert("Uploading image to generate QR code... Please wait.");
+        
+        // 2. SWAP THIS LINE: Call the new Imgur helper function
+        const hostedImageURL = await uploadToImgur(finalImage); 
+
+        // 3. Clear any old QR code and generate the new one
+        const qrContainer = document.getElementById("qrcode");
+        qrContainer.innerHTML = ""; 
+
+        new QRCode(qrContainer, {
+            text: hostedImageURL, // This QR code now links directly to the uploaded image!
+            width: 256,
+            height: 256
+        });
+        
+        alert("QR Code generated successfully!");
+
+    } catch (error) {
+        console.error(error);
+        alert("Failed to generate QR code. Check console for details.");
+    }
+}
 async function nextFrame(){
     const currentSrc = frame_img.src;
     frames.forEach((frame) => {
@@ -86,7 +219,6 @@ async function nextFrame(){
         }
       });
 }
-
 async function previousFrame(){
     const currentSrc = frame_img.src;
     frames.forEach((frame) => {
@@ -98,12 +230,10 @@ async function previousFrame(){
         }
       });
 }
-
-
 function changeTheme(theme){
   if (theme === "blue"){
     document.documentElement.style.setProperty('--accent', '#87A9F1');
-    document.documentElement.style.setProperty('--border', '#274F81');
+    document.documentElement.style.setProperty('--button', '#274F81');
     document.documentElement.style.setProperty('--text', '#A4D5e4');
     document.documentElement.style.setProperty('--muted', '#3F4B7C');
     document.documentElement.style.setProperty('--bg', '#cbd5dd');
@@ -111,7 +241,7 @@ function changeTheme(theme){
   } 
   if (theme==="b&w"){
     document.documentElement.style.setProperty('--accent', '#eeeeee');
-    document.documentElement.style.setProperty('--border', '#595959');
+    document.documentElement.style.setProperty('--button', '#595959');
     document.documentElement.style.setProperty('--text', '#ebeded');
     document.documentElement.style.setProperty('--muted', '#737374');
     document.documentElement.style.setProperty('--bg', '#cdcdcd');
@@ -119,7 +249,7 @@ function changeTheme(theme){
   }
   if (theme === "pink"){
     document.documentElement.style.setProperty('--accent', '#FF7E96');
-    document.documentElement.style.setProperty('--border', '#A32139');
+    document.documentElement.style.setProperty('--button', '#A32139');
     document.documentElement.style.setProperty('--text', '#FFB0BE');
     document.documentElement.style.setProperty('--muted', '#A7243C');
     document.documentElement.style.setProperty('--bg', '#ddcbcd');
@@ -127,7 +257,7 @@ function changeTheme(theme){
   }
   if (theme === "yellow"){
     document.documentElement.style.setProperty('--accent', '#F9E79F');
-    document.documentElement.style.setProperty('--border', '#B7950B');
+    document.documentElement.style.setProperty('--button', '#B7950B');
     document.documentElement.style.setProperty('--text', '#FDF2E9');
     document.documentElement.style.setProperty('--muted', '#B7950B');
     document.documentElement.style.setProperty('--bg', '#f2e5cb');
@@ -135,7 +265,7 @@ function changeTheme(theme){
   }
   if (theme === "red"){
     document.documentElement.style.setProperty('--accent', '#F1948A');
-    document.documentElement.style.setProperty('--border', '#922B21');
+    document.documentElement.style.setProperty('--button', '#922B21');
     document.documentElement.style.setProperty('--text', '#F5B7B1');
     document.documentElement.style.setProperty('--muted', '#922B21');
     document.documentElement.style.setProperty('--bg', '#f2c9c9');
@@ -146,11 +276,12 @@ function changeTheme(theme){
 retakePicturesButton.addEventListener('click', () => {
   retakePhotos();
 })
-// }
+
 function retakePhotos() {
     photosArray.length = 0; 
     photoCount = 0;
     captureButton.disabled = false;
+    seperate.disabled = false;
     capturedPhotoContainer.innerHTML = '';
     capturedPhotoContainer.classList.remove("has-photos");
 }
@@ -158,11 +289,11 @@ function retakePhotos() {
 async function takePhoto () {
 if (photoCount >= 4) {
     captureButton.disabled = true;
+    seperate.disabled = false;
     retakePicturesButton.disabled = false;
     downloadButton.disabled = false;
     return;
   }
-
   captureButton.disabled = true;  
 
   const countdownElement = document.createElement('div');
@@ -173,24 +304,24 @@ if (photoCount >= 4) {
     if (photoCount >= 4) {
       captureButton.disabled = true;
       countdownElement.remove();
+      seperate.disabled = false;
       retakePicturesButton.disabled = false;
       downloadButton.disabled = false;
       return;
     }
-
+    seperate.disabled = true;
     retakePicturesButton.disabled = true;
     downloadButton.disabled = true;
 
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
       speak(i.toString());
-      await new Promise((r) => setTimeout(r, 750));
+      await new Promise((r) => setTimeout(r, 50));
       if (i==1){
         video.classList.add('flash-effect');
         setTimeout(() => video.classList.remove('flash-effect'), 200);
       }
     }
-
 
     countdownElement.textContent = ""; 
 
@@ -224,6 +355,7 @@ if (photoCount >= 4) {
     img.src = photoData;
     img.style.width = '200px';
     img.style.margin = '5px';
+    seperateimgs.push(img);
     capturedPhotoContainer.appendChild(img);
     capturedPhotoContainer.classList.add("has-photos");
   };
@@ -236,6 +368,7 @@ if (photoCount >= 4) {
 
   countdownElement.remove();
   captureButton.disabled = true;
+  seperate.disabled = false;
   retakePicturesButton.disabled = false;
   downloadButton.disabled = false;
 }
@@ -269,12 +402,7 @@ async function downloadPhotos() {
         const img = new Image();
 
 
-        img.src = photosArray[i];
-
-    
-        
-
-
+        img.src = photosArray[i];         
         await new Promise((resolve) => {
           
             img.onload = () => {
@@ -338,11 +466,22 @@ export async function startCamera() {
   }
  
   try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+            video: {
+                width: { ideal: 720 },
+                height: { ideal: 720 }, // Equal dimensions enforce a 1:1 aspect ratio
+                aspectRatio: 1.0       // Force browser to supply square stream if supported
+            },
+            audio: false
+        });
+        video.srcObject = stream;
+    } catch (err) {
+        console.error("Error accessing camera: ", err);
+    }
+  try {
     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
     video.srcObject = stream;
     video.style.display = "block";
-    if (camOff) camOff.style.display = "none";
-    if (camDot) camDot.style.background = "var(--accent2)";
  
     video.addEventListener("loadeddata", () => {
       webcamRunning = true;
@@ -360,12 +499,7 @@ async function predictWebcam() {
   const canvas = document.getElementById("gesture-canvas");
   if (!canvas) return;
 
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
- 
-  canvas.style.height = "100%";
-  canvas.style.width = "100%";
- 
+
   const canvasCtx = canvas.getContext("2d");
   const drawingUtils = new DrawingUtils(canvasCtx);
  
@@ -388,7 +522,7 @@ async function predictWebcam() {
         });
         drawingUtils.drawLandmarks(landmarks, {
           color: "#4dfcff",
-          thickness: 1,
+          thickness: 0.5 ,
           radius: 1
         });
       }
@@ -426,20 +560,10 @@ function handleGestureHold(categoryName) {
 }
  
 // ── Map MediaPipe gesture names → your app actions ────────────────
-// Built-in gesture names: Thumb_Up, Thumb_Down, Open_Palm,
-// Closed_Fist, Victory, Pointing_Up, ILoveYou, None
+
 function triggerAction(gesture) {
   switch (gesture) {
-    case "Open_Palm":
-    //   window.speechSynthesis.cancel();
-    //   showToast("✋ Stopped speaking");
-    //   break;
- 
-    // case "ILoveYou":
-    //   if (typeof speakText === "function") speakText();
-    //   showToast("👍 Speaking text…");
-    //   break;
- 
+
     case "Closed_Fist":
       if (typeof retakePhotos === "function")
       if (!retakePicturesButton.disabled){
@@ -485,21 +609,11 @@ function updateGestureStatus(gesture, score) {
     Victory:      "✌️ Peace / V",
     Closed_Fist:  "👊 Fist",
     Pointing_Up:  "☝️ Pointing up",
-    Pointing_Down: "pointind down",
-    Pointing_Left: "point left",
+    Pointing_Down: "☝️ Pointing down",
+    Pointing_Left: "☝️ Pointing left",
     ILoveYou:     "🤟 I love you",
     None:         null
   };
- 
-  const label = labels[gesture] ?? null;
-  if (label) {
-    const progress = Math.min(100, Math.round((gestureSteadyFrames / HOLD_THRESHOLD) * 500));
-    el.textContent = `${label} — ${score}% · hold ${progress}%`;
-    el.style.color = "var(--accent)";
-  } else {
-    el.textContent = "No gesture";
-    el.style.color = "var(--muted)";
-  }
 }
  
 function showToast(msg) {

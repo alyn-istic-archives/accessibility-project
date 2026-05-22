@@ -78,3 +78,4 @@ function speak(textmsg) { // Don't speak if narration is off
 }
 
     
+

@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="camera.css">
 <link rel="stylesheet" href="bleh.css">
 <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
@@ -38,6 +39,9 @@
         <button id="retakePicturesButton"onmouseover="speak('retake photos')">Re-take</button>
 
         <button id="downloadButton"onmouseover="speak('download photos')">Download Photobooth </button>
+
+      <button id = "qr-btn">Generate</button>
+      <button id = "seperate-img" onclick="speak('seperate images')">Seperate Images</button>
   </div>
 
   
@@ -55,6 +59,7 @@
   </div>
 
  
+  <div id="qrcode"></div>
     <div id = "legend">
       <span>GESTURE GUIDE:</span>
       ✌️ peace sign → capture photos x 4<br>
@@ -63,9 +68,13 @@
       ✊ fist → retake photos
     </div>
 
+    
+
 
 
     <script src="tts.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script type="module" src = "camera.js"></script>
 
 </main>

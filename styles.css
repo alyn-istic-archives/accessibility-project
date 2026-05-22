@@ -1,3 +1,14 @@
+:root {
+    --bg: #cbd5dd;
+    --surface: #86b3e6;
+    --button: #274f81;
+    --accent: #87a9f1;
+    --text: #A4D5e4;
+    --muted: #3F4B7C;
+    --font: 'HNC', sans-serif;
+    --big: 3.5em;
+}
+
 .background{
     margin-top: 1em;
     left: auto;
@@ -67,7 +78,7 @@
 
 a{
     font-size: var(--big);
-    color: var(--border);
+    color: var(--button);
 }
 
 .booth-entry{
@@ -86,8 +97,4 @@ a{
     margin-right: auto;
     padding: 2rem;
     
-}
-
-button{
-    font-size: 1.5em; 
 }

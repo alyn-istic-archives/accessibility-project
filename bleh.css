@@ -10,13 +10,14 @@
 :root {
     --bg: #cbd5dd;
     --surface: #86b3e6;
-    --border: #274f81;
+    --button: #274f81;
     --accent: #87a9f1;
     --text: #A4D5e4;
     --muted: #3F4B7C;
     --font: 'HNC', sans-serif;
     --big: 3.5em;
 }
+
 
 body {
     font-family: var(--font);
@@ -39,7 +40,7 @@ body::before {
 button {
         font-family: var(--font);
         background-color: var(--text);
-        color: var(--border);
+        color: var(--button);
         border: none;
         border-radius: 4px;
         box-shadow: 0 2px 7px rgba(68, 68, 68, 0.9);
@@ -50,16 +51,16 @@ button {
 }
 
 button:hover{
-    background-color: var(--border);
+    background-color: var(--button);
     color: var(--text);
     transform: scale(1.05);
 }
 
 header {
     padding: .5em;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
+    position: absolute;
+    top:0;
+    left: 0;
     margin-bottom: 0;
     gap: 1rem;
 }
@@ -68,7 +69,7 @@ header {
     font-size: 2em;
     letter-spacing: -0.03em;
     font-family: var(--font);
-    color: var(--border);
+    color: var(--button);
 }
 
 
@@ -110,68 +111,7 @@ main{
   }
 
 
-  /* ── ACTIVE SCREEN ── */
-.panel {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-.panel-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.12em;
-    color: var(--muted);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-.dot {
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--muted);
-  }
-
-.dot.live {
-    background: var(--red);
-    animation: pulse 1s infinite;
-}
-.dot.green {
-  background: var(--green);
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
-.total-block {
-    margin-top: 1rem;
-    padding: 1rem;
-    border: 1px solid var(--accent);
-    border-radius: 4px;
-    display: flex;
-    align-items: baseline;
-    gap: 0.5rem;
-}
-
-.total-label {
-    font-size: 0.7rem;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-}
-
-#total-count {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-}
-
+ 
 
 
   /* Animations */
