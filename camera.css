@@ -20,6 +20,7 @@
 } 
 
 #video-preview {
+    aspect-ratio: 1/1;
     top: auto;
     left: auto;
     position: absolute;
@@ -34,6 +35,8 @@
     border-radius: 30px;
     border-color: var(--border);
 }
+
+
 
 /* #legend{
     position: absolute;

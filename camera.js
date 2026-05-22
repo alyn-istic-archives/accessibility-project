@@ -111,7 +111,7 @@ async function seperateImgs(){
     downloadImgButton.textContent = "Download";
     img.addEventListener('click', () => {
       link.click();
-    });
+    },{ once: true });
     
     img.append(downloadImgButton);
     container.appendChild(img);
@@ -283,6 +283,7 @@ function retakePhotos() {
     captureButton.disabled = false;
     seperate.disabled = false;
     capturedPhotoContainer.innerHTML = '';
+    seperateimgs = [];
     capturedPhotoContainer.classList.remove("has-photos");
 }
 
@@ -475,22 +476,28 @@ export async function startCamera() {
             audio: false
         });
         video.srcObject = stream;
-    } catch (err) {
-        console.error("Error accessing camera: ", err);
-    }
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-    video.srcObject = stream;
-    video.style.display = "block";
- 
-    video.addEventListener("loadeddata", () => {
-      webcamRunning = true;
-      predictWebcam();
-    });
+        video.style.display = "block";
+    
+        video.addEventListener("loadeddata", () => {
+          webcamRunning = true;
+          predictWebcam();
+        });
   } catch (err) {
-    if (camOff) { camOff.style.display = "flex"; camOff.textContent = "Camera unavailable or permission denied"; }
-    console.warn("Camera error:", err);
+        console.error("Error accessing camera: ", err);
   }
+  // try {
+  //   const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  //   video.srcObject = stream;
+  //   video.style.display = "block";
+ 
+  //   video.addEventListener("loadeddata", () => {
+  //     webcamRunning = true;
+  //     predictWebcam();
+  //   });
+  // } catch (err) {
+  //   if (camOff) { camOff.style.display = "flex"; camOff.textContent = "Camera unavailable or permission denied"; }
+
+  // }
 }
  
 // ── Main prediction loop ──────────────────────────────────────────
@@ -568,6 +575,7 @@ function triggerAction(gesture) {
       if (typeof retakePhotos === "function")
       if (!retakePicturesButton.disabled){
         showToast("(Possibly) Retaking Photos...");
+
         retakePhotos();
       }
       break;
