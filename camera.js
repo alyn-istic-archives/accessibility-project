@@ -8,8 +8,10 @@ import {
  
 let gestureRecognizer;
 let webcamRunning = false;
+let seperateClicked = false;
 let lastVideoTime = -1;
 let lastTriggeredGesture = null;
+
 let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
 const HOLD_THRESHOLD = 8; // hold ~0.6s before firing
@@ -23,7 +25,6 @@ const previous_frame = document.getElementById("previous-frame-button");
 
 const gestures = document.getElementById("help");
 const seperate = document.getElementById("seperate-img");
-let seperateClicked = "false";
 
 const frames = [
   "images/frame.png",
@@ -58,6 +59,7 @@ let photoCount = 0;
 document.addEventListener('DOMContentLoaded', async () => {
   captureButton.addEventListener('click', takePhoto)
   downloadButton.addEventListener('click', downloadPhotos);
+
   startCamera();
 })
 

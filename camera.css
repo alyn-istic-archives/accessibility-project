@@ -60,7 +60,7 @@ button{
     box-shadow: 0 2px 7px rgba(68, 68, 68, 0.9);
     padding: 0.5rem 1rem;
 
-    font-size: var(--big);
+    font-size: var(--small);
     margin: 0.5rem;
     margin-top: 0;  
     letter-spacing: var(--space);
@@ -244,20 +244,44 @@ button{
 }
 
 @media (max-width: 700px) {
-  .photo-container {
+  #app {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 0.5rem 3rem;
     width: 100%;
-    gap: 0.75rem;
-    margin: 0.75em auto 0;
+    box-sizing: border-box;
+  }
+
+  .btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  button {
+    font-size: 1.5em;
+    padding: 0.4rem;
+    margin: 0.25rem;
+  }
+
+  .logo{
+    font-size: 1.5em;
+  }
+
+  .photo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
   .camera-wrapper {
     position: relative;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     aspect-ratio: 4 / 3;
+    height: auto;
   }
 
   .camera-wrapper video,
@@ -273,20 +297,31 @@ button{
   }
 
   #photobooth-output {
+    position: static;       
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
     max-height: none;
-    width: 100%;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    gap: 0.5rem;
   }
 
-  #photobooth-output img {
-    width: 90px;
-  }
 
+
+  /* ← key fix: pull out of absolute positioning */
   #legend {
+    position: static;       
     width: 100%;
-    font-size: 0.8rem;
-    text-align: center;
+    max-width: 420px;
+    font-size: 0.85rem;
+    text-align: left;
+    margin-top: 0.75rem;
+    padding: 0.75rem;
   }
 }
