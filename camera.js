@@ -155,8 +155,8 @@ async function generatePhotoboothQR() {
         return;
     }
 
-    const singleWidth = 500;   
-    const singleHeight = 375;  
+    const singleWidth = 600;   
+    const singleHeight = 600;  
     const border = 10;         
     const textHeight = 40;    
 
