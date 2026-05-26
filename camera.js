@@ -14,16 +14,15 @@ let lastTriggeredGesture = null;
 
 let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
-const HOLD_THRESHOLD = 8; // hold ~0.6s before firing
+const HOLD_THRESHOLD = 15; // hold ~0.6s before firing
  
-const videoHeight = "600px"; //3
+const videoHeight = "900px"; //3
 const videoWidth = "600px"; //4
 
 const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
 const previous_frame = document.getElementById("previous-frame-button");
 
-const gestures = document.getElementById("help");
 const seperate = document.getElementById("seperate-img");
 
 const frames = [
@@ -49,7 +48,7 @@ const captureButton = document.getElementById('captureButton');
 const capturedPhotoContainer = document.getElementById('photobooth-output');
 const downloadButton = document.getElementById('downloadButton');
 const retakePicturesButton = document.getElementById('retakePicturesButton');
-const gesture_btn = document.getElementById('help');
+
 
 const qr_btn = document.getElementById('qr-btn');
 
@@ -70,9 +69,6 @@ if (previous_frame){
   previous_frame.addEventListener('click', previousFrame);
 }
 
-if (gesture_btn){
-  gesture_btn.addEventListener('click', gesture_appear);
-}
 
 if (seperate){
   seperate.addEventListener('click', () => {
@@ -121,8 +117,6 @@ async function seperateImgs(){
     output.appendChild(container);
   });
 }
-
-
 function recollectImgs(){
   if (seperateimgs.length === 0) {
     alert("No photos to recollect!");
@@ -134,82 +128,17 @@ function recollectImgs(){
   });
 }
 
-function gesture_appear(){
-  if (gestures.classList.contains("show")){
-    gestures.classList.remove("show");
-  }else{
-    gestures.classList.add("show");
-  }
+
+function resizeCanvasToVideo() {
+  const canvas = document.getElementById('gesture-canvas');
+  const video = document.getElementById('video-preview');
+  canvas.width = video.videoWidth || video.clientWidth;
+  canvas.height = video.videoHeight || video.clientHeight;
+  canvas.style.width = '100%';
+  canvas.style.height = '100%';
 }
+window.addEventListener('resize', resizeCanvasToVideo);
 
-if (qr_btn){
-  qr_btn.addEventListener('click', generatePhotoboothQR);
-}
-
-const qrcode = new QRCode(document.getElementById("qrcode"), {
-    width: 128,
-    height: 128
-});
-
-async function generatePhotoboothQR() {
-    if (photosArray.length === 0) {
-        alert("No photos to process!");
-        return;
-    }
-
-    const singleWidth = 600;   
-    const singleHeight = 600;  
-    const border = 10;         
-    const textHeight = 40;    
-
-    const canvas = document.createElement('canvas');
-    canvas.width = singleWidth + border * 2;
-    canvas.height = singleHeight * 4 + border * 3 + textHeight;
-
-    const ctx = canvas.getContext('2d');
-
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = 0; i < photosArray.length; i++) {
-        const img = new Image();
-        img.src = photosArray[i];         
-        await new Promise((resolve) => {
-            img.onload = () => {
-                const col = i % 1;
-                const row = Math.floor(i);
-                const x = border + col * (singleWidth + border);
-                const y = border + row * (singleHeight + border);
-                ctx.drawImage(img, x, y, singleWidth, singleHeight);
-                resolve();
-            };
-        });
-    }
-    const finalImage = canvas.toDataURL('image/png');
-
-    try {
-        alert("Uploading image to generate QR code... Please wait.");
-        
-        // 2. SWAP THIS LINE: Call the new Imgur helper function
-        const hostedImageURL = await uploadToImgur(finalImage); 
-
-        // 3. Clear any old QR code and generate the new one
-        const qrContainer = document.getElementById("qrcode");
-        qrContainer.innerHTML = ""; 
-
-        new QRCode(qrContainer, {
-            text: hostedImageURL, // This QR code now links directly to the uploaded image!
-            width: 256,
-            height: 256
-        });
-        
-        alert("QR Code generated successfully!");
-
-    } catch (error) {
-        console.error(error);
-        alert("Failed to generate QR code. Check console for details.");
-    }
-}
 async function nextFrame(){
     const currentSrc = frame_img.src;
     frames.forEach((frame) => {
@@ -319,7 +248,7 @@ if (photoCount >= 4) {
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
       speak(i.toString());
-      await new Promise((r) => setTimeout(r, 50));
+      await new Promise((r) => setTimeout(r, 200));
       if (i==1){
         video.classList.add('flash-effect');
         setTimeout(() => video.classList.remove('flash-effect'), 200);
@@ -383,8 +312,8 @@ async function downloadPhotos() {
     }
 
     const singleWidth = 600;   
-    const singleHeight = 600;  
-    const border = 10;         
+    const singleHeight = 900;  
+    const border = 30;         
     const textHeight = 40;    
 
 
@@ -432,9 +361,7 @@ async function downloadPhotos() {
     const link = document.createElement('a');
     link.href = finalImage;
     link.download = 'photobooth.png';
-    for (let i = 0; i < 1; i++) {
-      await link.click();
-    }
+    await link.click(), { once: true };
 }
 
 
@@ -460,6 +387,7 @@ export async function startCamera() {
   await createGestureRecognizer();
  
   const video = document.getElementById("video-preview");
+  video.addEventListener('loadedmetadata', resizeCanvasToVideo);
   const camOff = document.getElementById("cam-off-msg");
   const camDot = document.getElementById("cam-dot");
  
