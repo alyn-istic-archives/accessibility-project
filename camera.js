@@ -267,7 +267,7 @@ if (photoCount >= 4) {
 
     const frame = document.createElement('img');
     frame.src = frame_img.src;
-    frame.style.width = '200px';
+    frame.style.width = '100px';
     frame.style.margin = '5px';
     
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
