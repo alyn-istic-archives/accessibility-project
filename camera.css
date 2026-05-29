@@ -83,6 +83,11 @@ button{
     border-radius: 40px;
 }
 
+.captured-photo{
+    width: 200px;
+    height: 200px;
+}
+
 
 .camera-wrapper video {
     object-fit: fill;
@@ -118,8 +123,8 @@ button{
     position: absolute;
     top: 0%;
     left: 0%;
-    width: 600px;
-    height: 600px;
+    height: 100%;
+    width: 100%;
     pointer-events: none;
     z-index: 900;
     border-radius: 30px;
@@ -319,7 +324,10 @@ button{
     gap: 0.5rem;
   }
 
-
+  .captured-photo{
+    width: 200px;
+    height: 300px;
+  }
 
   /* ← key fix: pull out of absolute positioning */
   #legend {

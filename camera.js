@@ -16,8 +16,8 @@ let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
 const HOLD_THRESHOLD = 15; // hold ~0.6s before firing
  
-const videoHeight = "900px"; //3
-const videoWidth = "600px"; //4
+const videoHeight = "300px"; //3
+const videoWidth = "200px"; //4
 
 const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
@@ -284,8 +284,8 @@ if (photoCount >= 4) {
     console.log(`Photo ${photoCount} captured!`, photosArray);
 
     const img = document.createElement('img');
+    img.classList.add("captured-photo");
     img.src = photoData;
-    img.style.width = '200px';
     img.style.margin = '5px';
     seperateimgs.push(img);
     capturedPhotoContainer.appendChild(img);
@@ -311,8 +311,8 @@ async function downloadPhotos() {
         return;
     }
 
-    const singleWidth = 600;   
-    const singleHeight = 900;  
+    const singleWidth = 200;   
+    const singleHeight = 300;  
     const border = 30;         
     const textHeight = 40;    
 
