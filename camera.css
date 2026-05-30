@@ -325,8 +325,8 @@ button{
   }
 
   .captured-photo{
-    width: 600px;
-    height: 900px;
+    width: 200px;
+    height: 300px;
   }
 
   /* ← key fix: pull out of absolute positioning */
