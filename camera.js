@@ -16,8 +16,8 @@ let gestureSteadyFrames = 0;
 const background = document.getElementById("app");
 const HOLD_THRESHOLD = 15; // hold ~0.6s before firing
  
-const videoHeight = "300px"; //3
-const videoWidth = "200px"; //4
+const videoHeight = "900px"; //3
+const videoWidth = "600px"; //4
 
 const frame_img = document.getElementById("frame");
 const next_frame = document.getElementById("next-frame-button");
@@ -311,8 +311,8 @@ async function downloadPhotos() {
         return;
     }
 
-    const singleWidth = 200;   
-    const singleHeight = 300;  
+    const singleWidth = 600;   
+    const singleHeight = 900;  
     const border = 30;         
     const textHeight = 40;    
 
@@ -565,5 +565,5 @@ function showToast(msg) {
   toast.textContent = msg;
   toast.style.opacity = "1";
   clearTimeout(toast._timer);
-  toast._timer = setTimeout(() => { toast.style.opacity = "0"; }, 2000);
+  toast._timer = setTimeout(() => { toast.style.opacity = "0"; }, 200);
 }
