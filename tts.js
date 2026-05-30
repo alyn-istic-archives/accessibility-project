@@ -42,7 +42,7 @@ function speakText() {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.voice = window.speechSynthesis.getVoices().find(v => v.name.includes('Microsoft Zira'));  // good on Edge
     utterance.lang = 'en-US';
-    utterance.rate = 0.95;
+    utterance.rate = 0.75;
     utterance.pitch = 1;
 
         // Pick the best available voic

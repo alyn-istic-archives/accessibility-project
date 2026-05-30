@@ -248,7 +248,7 @@ if (photoCount >= 4) {
     for (let i = 3; i > 0; i--) {
       countdownElement.textContent = i;
       speak(i.toString());
-      await new Promise((r) => setTimeout(r, 200));
+      await new Promise((r) => setTimeout(r, 500));
       if (i==1){
         video.classList.add('flash-effect');
         setTimeout(() => video.classList.remove('flash-effect'), 200);

@@ -28,7 +28,6 @@ body {
     overflow-x: hidden;
 }
 
-
   /* Scanline overlay */
 body::before {
     content: '';
@@ -37,6 +36,44 @@ body::before {
     pointer-events: none;
     z-index: 100;
 }
+
+h1{
+    color: var(--button);
+    margin-left: 20vw;
+    margin-right: 20vw;
+    margin-top: 0.25em;
+    margin-bottom: 0;
+    text-align: left;
+    font-size: var(--big);
+}
+
+h2{
+    color: var(--button);
+    margin-left: 20vw;
+    margin-right: 20vw;
+    margin-top: 0.25em;
+    text-align: left;
+    font-size: 1.2em;
+}
+
+h3{
+    color: var(--button);
+    margin-left: 20vw;
+    margin-right: 20vw;
+    margin-top: 0.25em;
+    text-align: left;
+    font-size: 1em;
+}
+
+p, ul, ol {
+    color: var(--button);
+    margin-left: 20vw;
+    margin-right: 20vw;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: left;
+}
+
 
 button {
         font-family: var(--font);
@@ -78,6 +115,7 @@ main{
     display: grid;
     margin: auto;
     padding: 1.2em;
+    padding-top: 0;
 }
 
 
